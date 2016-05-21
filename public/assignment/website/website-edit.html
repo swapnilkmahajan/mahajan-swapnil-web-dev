@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="initial-scale=1.25, user-scalable = no">
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/assignment/css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <p class="navbar-text pull-left">
+                <a href="website-list.html" class="navbar-link">
+                  <span class="glyphicon glyphicon-chevron-left">
+                  </span>
+                </a>
+            </p>
+            <a class="navbar-brand" href="#">
+                Edit Website
+            </a>
+            <p class="navbar-text pull-right">
+                <a href="website-edit.html" class="navbar-link">
+                  <span class="glyphicon glyphicon-ok">
+                  </span>
+                </a>
+            </p>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <form>
+        <div class="form-group">
+            <label for="website-name">Website Name</label>
+            <input type="text"
+                   class="form-control"
+                   id="website-name"
+                   value="Facebook"
+                   placeholder="Google">
+        </div>
+        <div class="form-group">
+            <label for="website-description">Website Description</label>
+                <textarea rows="4"
+                          id="website-description"
+                          class="form-control"
+                          placeholder="Description">Facebook is a corporation and an online social networking service headquartered in Menlo Park, California, in the United States. Its website was launched on February 4, 2004 by Mark Zuckerberg with his Harvard College roommates and fellow students Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes.[7][8][9] The founders had initially limited the website's membership to Harvard students, but later expanded it to colleges in the Boston area, the Ivy League, and Stanford University. It gradually added support for students at various other universities and later to high school students. Since 2006, anyone in general aged 13 and older has been allowed to become a registered user of the website, though variations exist in the minimum age requirement, depending on applicable local laws. Its name comes from the face book directories often given to American university students.</textarea>
+        </div>
+    </form>
+
+    <a class="btn btn-danger  btn-block"
+       href="website-edit.html">Delete</a>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container">
+        <div class="navbar-text pull-left">
+            <a href="#">
+                <span class="glyphicon glyphicon-share-alt"></span>
+            </a>
+        </div>
+        <div class="navbar-text pull-right">
+                <a href="/assignment/user/profile.html">
+                    <span class="glyphicon glyphicon-user"></span>
+                </a>
+        </div>
+    </div>
+</nav>
+</body>
+</html>
