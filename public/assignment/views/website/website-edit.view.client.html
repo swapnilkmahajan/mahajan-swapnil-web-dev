@@ -24,7 +24,7 @@
                 Edit Website
             </a>
             <p class="navbar-text pull-right">
-                <a href="website-list.view.client.html" class="navbar-link">
+                <a ng-click="model.updateWebsite(model.website)" class="navbar-link">
                   <span class="glyphicon glyphicon-ok">
                   </span>
                 </a>
@@ -34,11 +34,22 @@
 </nav>
 
 <div class="container">
-
+    <div  ng-if="model.success"
+          class="alert alert-success alert-dismissible"
+          role="alert">
+        <button type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Success</strong> Changes saved.
+    </div>
     <form>
         <div class="form-group">
             <label for="website-name">Website Name</label>
-            <input type="text"
+            <input ng-model="model.website.name"
+                   type="text"
                    class="form-control"
                    id="website-name"
                    value="Facebook"
@@ -46,7 +57,8 @@
         </div>
         <div class="form-group">
             <label for="website-description">Website Description</label>
-                <textarea rows="4"
+                <textarea ng-model="model.website.description"
+                          rows="4"
                           id="website-description"
                           class="form-control"
                           placeholder="Description">Facebook is a corporation and an online social networking service headquartered in Menlo Park, California, in the United States. Its website was launched on February 4, 2004 by Mark Zuckerberg with his Harvard College roommates and fellow students Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes.[7][8][9] The founders had initially limited the website's membership to Harvard students, but later expanded it to colleges in the Boston area, the Ivy League, and Stanford University. It gradually added support for students at various other universities and later to high school students. Since 2006, anyone in general aged 13 and older has been allowed to become a registered user of the website, though variations exist in the minimum age requirement, depending on applicable local laws. Its name comes from the face book directories often given to American university students.</textarea>
@@ -54,7 +66,7 @@
     </form>
 
     <a class="btn btn-danger  btn-block"
-       href="website-list.view.client.html">Delete</a>
+       ng-click="model.removeWebsite(model.website._id)">Delete</a>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
@@ -65,7 +77,7 @@
             </a>
         </div>
         <div class="navbar-text pull-right">
-                <a href="/assignment/user/profile.html">
+                <a ng-click="model.gotoProfile()">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
         </div>

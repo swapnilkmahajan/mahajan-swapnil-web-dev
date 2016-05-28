@@ -28,6 +28,11 @@
                 controller: "WebsiteListController",
                 controllerAs: "model"
             })
+            .when("/user/:userId/website/:websiteId", {
+                templateUrl: "views/website/website-edit.view.client.html",
+                controller: "EditWebsiteController",
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo: "/login"
             });
