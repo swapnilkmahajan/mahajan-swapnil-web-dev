@@ -5,7 +5,7 @@
             Profile
         </a>
         <p class="navbar-text pull-right">
-            <a href="#" class="navbar-link">
+            <a ng-click="model.updateUser()" class="navbar-link">
                 <span class="glyphicon glyphicon-ok" />
             </a>
         </p>
@@ -14,7 +14,7 @@
 </nav>
 <div class="container">
 
-    <div class="alert alert-success alert-dismissible" role="alert">
+    <div ng-if="model.success" class="alert alert-success alert-dismissible" role="alert">
         <button type="button"
                 class="close"
                 data-dismiss="alert"
