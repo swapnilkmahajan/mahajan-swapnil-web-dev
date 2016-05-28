@@ -28,6 +28,7 @@
 
             if(status === true){
                 vm.success = "Success";
+                $location.url("/user/"+userId+"/website/");
             }else{
                 vm.failed = "Error";
             }

@@ -34,8 +34,16 @@
             return null;
         }
 
-        function createWebsite(userId, website){
+        function createWebsite(userId, name, desc){
+            var newWebsite = {
+                _id : (new Date).getTime().toString(),
+                name: name,
+                description: desc,
+                developerId:userId
+            }
 
+            websites.push(newWebsite);
+            return newWebsite;
         }
 
         function updateWebsite(websiteId, website){
