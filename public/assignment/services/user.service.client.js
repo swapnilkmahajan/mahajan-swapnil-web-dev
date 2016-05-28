@@ -18,16 +18,34 @@
             createUser: createUser,
             findUserByUsernameAndPassword: findUserByUsernameAndPassword,
             findUserById: findUserById,
+            findUserByUsername:findUserByUsername,
             updateUser: updateUser,
             deleteUser: deleteUser
         }
         return api;
 
         function createUser(newUser) {
+            newUser._id = (new Date).getTime().toString();
+            delete newUser.verify;
+            users.push(newUser);
         }
 
-        function deleteUser(id){
-            
+        function deleteUser(id) {
+            for (var i in users) {
+                if (users[i]._id === id) {
+                    users.splice(i,1);
+                }
+            }
+        }
+
+        function findUserByUsername(username){
+            for(var i in users){
+                if(users[i].username === username){
+                    var id = users[i]._id;
+                    return users[i];
+                }
+            }
+            return null;
         }
 
         function findUserByUsernameAndPassword(username, password){
