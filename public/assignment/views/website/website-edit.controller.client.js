@@ -11,7 +11,6 @@
         var vm = this;
         vm.updateWebsite = updateWebsite;
         vm.removeWebsite = removeWebsite;
-        vm.gotoProfile = gotoProfile;
 
         var id = $routeParams.websiteId;
         var userId = $routeParams.userId;
@@ -23,9 +22,6 @@
         }
         init();
 
-        function gotoProfile() {
-            $location.url("/user/"+userId);
-        }
 
         function updateWebsite(newWebsite){
             var status = WebsiteService.updateWebsite(id, newWebsite);

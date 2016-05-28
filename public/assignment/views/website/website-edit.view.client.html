@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <div class="navbar-inner">
             <p class="navbar-text pull-left">
-                <a href="website-list.view.client.html" class="navbar-link">
+                <a href="#/user/{{model.website.developerId}}/website" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left">
                   </span>
                 </a>
@@ -77,7 +77,7 @@
             </a>
         </div>
         <div class="navbar-text pull-right">
-                <a ng-click="model.gotoProfile()">
+                <a href="#/user/{{model.website.developerId}}">
                     <span class="glyphicon glyphicon-user"></span>
                 </a>
         </div>
