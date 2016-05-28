@@ -13,7 +13,7 @@
         function login (username, password) {
             var user = UserService.findUserByUsernameAndPassword(username,password);
             if(user){
-                $location.url("/profile/"+user._id);
+                $location.url("/user/"+user._id);
             }else{
                 vm.error = "User not found";
             }

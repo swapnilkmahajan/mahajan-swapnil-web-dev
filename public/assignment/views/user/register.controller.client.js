@@ -19,7 +19,7 @@
                 if(newUser.password === newUser.verify){
                     UserService.createUser(newUser);
                     var user = UserService.findUserByUsernameAndPassword(newUser.username,newUser.password);
-                    $location.url("/profile/"+user._id);
+                    $location.url("/user/"+user._id);
                 }
                 else{
                     vm.error = "Password and Verify Password do not match";
