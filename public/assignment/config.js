@@ -43,6 +43,11 @@
                 controller: "PageListController",
                 controllerAs: "model"
             })
+            .when("/user/:userId/website/:websiteId/page/new", {
+                templateUrl: "views/page/page-new.view.client.html",
+                controller: "NewPageController",
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo: "/login"
             });

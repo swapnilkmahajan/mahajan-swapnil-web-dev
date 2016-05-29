@@ -23,15 +23,16 @@
         return api;
 
 
-        function createPage(websiteId, name, description) {
+        function createPage(websiteId, name, title) {
             var newPage = {
                 _id :(new Date).getTime().toString(),
                 websiteId: websiteId,
                 name:name,
-                description:description
+                title:title
             };
             
             pages.push(newPage);
+            return newPage;
         }
 
         function findPageByWebsiteId(websiteId) {
