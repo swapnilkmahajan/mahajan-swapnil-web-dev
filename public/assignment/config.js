@@ -48,6 +48,11 @@
                 controller: "NewPageController",
                 controllerAs: "model"
             })
+            .when("/user/:userId/website/:websiteId/page/:pageId", {
+                templateUrl: "views/page/page-edit.view.client.html",
+                controller: "EditPageController",
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo: "/login"
             });

@@ -46,7 +46,12 @@
         }
 
         function findPageById(pageId) {
-
+            for (var i in pages){
+                if(pages[i]._id === pageId){
+                    return pages[i];
+                }
+            }
+            return null;
         }
 
         function updatePage(pageId, page){
@@ -54,7 +59,13 @@
         }
 
         function deletePage(pageId) {
-
+            for (var i in pages){
+                if(pages[i]._id === pageId){
+                    pages.splice(i,1);
+                    return true;
+                }
+            }
+            return false;
         }
     }
 })();
