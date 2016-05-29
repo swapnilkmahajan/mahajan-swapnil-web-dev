@@ -9,7 +9,7 @@
 
     function EditPageController($routeParams, PageService, $location) {
         var vm = this;
-//        vm.updatePage = updatePage;
+        vm.updatePage = updatePage;
         vm.removePage = removePage;
 
         vm.websiteId = $routeParams.websiteId;
@@ -22,6 +22,17 @@
             }
         }
         init();
+
+        function updatePage(page){
+            var result = PageService.updatePage(vm.pageId, page);
+
+            if (result){
+                $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
+            }
+            else{
+                vm.error = "Error updating page";
+            }
+        }
         
         function removePage(pageId) {
             var result = PageService.deletePage(pageId);
