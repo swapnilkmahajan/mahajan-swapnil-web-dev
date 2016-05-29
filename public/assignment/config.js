@@ -38,6 +38,11 @@
                 controller: "EditWebsiteController",    
                 controllerAs: "model"
             })
+            .when("/user/:userId/website/:websiteId/page", {
+                templateUrl: "views/page/page-list.view.client.html",
+                controller: "PageListController",
+                controllerAs: "model"
+            })
             .otherwise({
                 redirectTo: "/login"
             });

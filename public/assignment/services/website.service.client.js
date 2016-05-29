@@ -40,7 +40,7 @@
                 name: name,
                 description: desc,
                 developerId:userId
-            }
+            };
 
             websites.push(newWebsite);
             return newWebsite;
