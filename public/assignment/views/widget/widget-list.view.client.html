@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <div class="navbar-inner">
             <p class="navbar-text pull-left">
-                <a href="/assignment/page/page-list.html" class="navbar-link">
+                <a href="/user/{{model.userId}}/website/{{model.websiteId}}/page" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left">
                   </span>
                 </a>
@@ -34,82 +34,45 @@
 </nav>
 
 <div class="container">
-    <div class="jga-widget">
+
+
+    <div ng-repeat="widget in model.widgets" class="jga-widget">
         <div class="jga-widget-tool">
             <a href="widget-heading.view.client.html">
                 <span class="glyphicon glyphicon-cog"></span>
             </a>
             <span class="glyphicon glyphicon-align-justify"></span>
         </div>
-        <h1>GIZMODO</h1>
-    </div>
-
-    <div class="jga-widget">
-        <div class="jga-widget-tool">
-            <a href="#">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
+        <div ng-switch="widget.widgetType">
+            <div ng-switch-when="HEADER" ng-switch="widget.size">
+                <h1 ng-switch-when="1">{{widget.text}}</h1>
+                <h2 ng-switch-when="2">{{widget.text}}</h2>
+                <h3 ng-switch-when="3">{{widget.text}}</h3>
+                <h4 ng-switch-when="4">{{widget.text}}</h4>
+                <h5 ng-switch-when="5">{{widget.text}}</h5>
+                <h6 ng-switch-when="6">{{widget.text}}</h6>
+            </div>
+            <div ng-switch-when="IMAGE">
+                <img ng-src="{{widget.url}}" width="{{widget.width}}"/>
+            </div>
+            <div ng-switch-when="HTML">
+                <div ng-bind-html="model.getSafeHtml(widget)"></div>
+            </div>
+            <div ng-switch-when="YOUTUBE">
+                <iframe width="{{widget.width}}" ng-src="{{model.getSafeUrl(widget)}}" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <div ng-switch-default>
+                Unknown Widget
+            </div>
         </div>
-        <h4>Airbus A380: the Aircraft, Market Forecasts, and its History</h4>
     </div>
-
-    <div class="jga-widget">
-        <div class="jga-widget-tool">
-            <a href="widget-image.view.client.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <img width="100%" src="http://upload.wikimedia.org/wikipedia/commons/8/82/Airbus_A380_blue_sky.jpg"/>
-    </div>
-
-    <div class="jga-widget">
-        <div class="jga-widget-tool">
-            <a href="#">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <p>The <b>Airbus A380</b> is a <a href="/wiki/Double-deck_aircraft" title="Double-deck aircraft">double-deck</a>, <a href="/wiki/Wide-body_aircraft" title="Wide-body aircraft">wide-body</a>, four-engine <a href="/wiki/Jet_airliner" title="Jet airliner">jet airliner</a> manufactured by <a href="/wiki/European_Union" title="European Union">European Union</a> manufacturer <a href="/wiki/Airbus" title="Airbus">Airbus</a>.<sup id="cite_ref-4" class="reference"><a href="#cite_note-4">[4]</a></sup><sup id="cite_ref-5" class="reference"><a href="#cite_note-5">[5]</a></sup><sup id="cite_ref-6" class="reference"><a href="#cite_note-6">[6]</a></sup> It is the world's largest passenger airliner, and the airports at which it operates have upgraded facilities to accommodate it. It was initially named <b>Airbus A3XX</b> and designed to challenge <a href="/wiki/Boeing" title="Boeing">Boeing</a>'s monopoly in the large-aircraft market. The A380 made its first flight on 27 April 2005 and entered commercial service in October 2007 with <a href="/wiki/Singapore_Airlines" title="Singapore Airlines">Singapore Airlines</a>.</p>
-    </div>
-
-    <div class="jga-widget">
-        <div class="jga-widget-tool">
-            <a href="#">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <h4>Airbus A380: King Of The Skies : Manufacturing Process</h4>
-    </div>
-    <div class="jga-widget">
-        <div class="jga-widget-tool">
-            <a href="widget-youtube.view.client.html">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <iframe width="100%" src="https://www.youtube.com/embed/RlOq5MJr2LM" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="jga-widget">
-        <div class="jga-widget-tool">
-            <a href="#">
-                <span class="glyphicon glyphicon-cog"></span>
-            </a>
-            <span class="glyphicon glyphicon-align-justify"></span>
-        </div>
-        <p>Major structural sections of the A380 are built in France, Germany, Spain, and the United Kingdom. Due to the sections' large size, traditional transportation methods proved infeasible,<sup id="cite_ref-moral_32-0" class="reference"><a href="#cite_note-moral-32">[32]</a></sup> so they are brought to the <i>Jean-Luc Lagardère Plant</i> assembly hall in <a href="/wiki/Toulouse" title="Toulouse">Toulouse</a>, France by specialised surface transportation, though some parts are moved by the <a href="/wiki/Airbus_Beluga" title="Airbus Beluga">A300-600ST <i>Beluga</i></a> transport aircraft, which is also used in the movement of other Airbus model components.<sup id="cite_ref-33" class="reference"><a href="#cite_note-33">[33]</a></sup> A380 components are provided by suppliers from around the world; the four largest contributors, by value, are <a href="/wiki/Rolls-Royce_plc" title="Rolls-Royce plc" class="mw-redirect">Rolls-Royce</a>, <a href="/wiki/Safran" title="Safran">Safran</a>, <a href="/wiki/United_Technologies_Corporation" title="United Technologies Corporation" class="mw-redirect">United Technologies</a> and <a href="/wiki/General_Electric" title="General Electric">General Electric</a>.<sup id="cite_ref-ms_a380_debate_20060905_25-1" class="reference"><a href="#cite_note-ms_a380_debate_20060905-25">[25]</a></sup></p>
-    </div>
-
-
 </div>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
         <div class="navbar-text pull-right">
-            <a href="/assignment/user/profile.html">
+            <a href="#/user/{{model.userId}}">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </div>
