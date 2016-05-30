@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="navbar-inner">
             <p class="navbar-text pull-left">
-                <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget" class="navbar-link">
+                <a ng-click="model.gotoWidgetList()" class="navbar-link">
                   <span class="glyphicon glyphicon-chevron-left">
                   </span>
                 </a>
@@ -67,7 +67,7 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
         <div class="navbar-text pull-right">
-            <a href="#/user/{{model.userId}}">
+            <a ng-click="model.gotoProfile()">
                 <span class="glyphicon glyphicon-user"></span>
             </a>
         </div>

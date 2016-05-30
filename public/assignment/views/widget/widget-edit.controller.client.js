@@ -7,13 +7,17 @@
         var vm = this;
         vm.updateWidget = updateWidget;
         vm.deleteWidget =deleteWidget;
+        vm.gotoWidgetList =gotoWidgetList;
+        vm.gotoProfile = gotoProfile;
 
         vm.pageId = $routeParams.pageId;
         vm.userId = $routeParams.userId;
         vm.websiteId = $routeParams.websiteId;
         vm.widgetId = $routeParams.widgetId;
+
         function init(){
             vm.widget = WidgetService.findWidgetById(vm.widgetId);
+            vm.isNew = WidgetService.getNewStatus();
         }
         init();
 
@@ -34,6 +38,19 @@
             }else {
                 vm.error = "Error deleting widget";
             }
+        }
+
+        function gotoWidgetList() {
+            if (vm.isNew === vm.widgetId){
+                deleteWidget(vm.widgetId);
+            }
+        }
+
+        function gotoProfile() {
+            if (vm.isNew === vm.widgetId){
+                deleteWidget(vm.widgetId);
+            }
+            $location.url("/user/"+ vm.userId);
         }
     }
 })();

@@ -18,15 +18,22 @@
         { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"}
     ];
 
+    var isNew = null;
+
     function WidgetService() {
         var api = {
             createWidget: createWidget,
             findWidgetsByPageId:findWidgetsByPageId,
             findWidgetById: findWidgetById,
             updateWidget: updateWidget,
-            deleteWidget: deleteWidget
+            deleteWidget: deleteWidget,
+            getNewStatus: getNewStatus
         };
         return api;
+
+        function getNewStatus(){
+            return isNew;
+        }
 
         function createWidget(pageId, widget) {
             var newWidget = {
@@ -34,6 +41,10 @@
                 pageId: pageId,
                 widgetType : widget.widgetType
             }
+
+            widgets.push(newWidget);
+            isNew = newWidget._id;
+            return newWidget;
         }
 
         function findWidgetsByPageId(pageId){
@@ -89,6 +100,7 @@
                     }
                 }
             }
+            isNew = null;
             return updated;
         }
 
@@ -96,6 +108,7 @@
             for(var i in widgets){
                 if(widgets[i]._id === widgetId){
                     widgets.splice(i,1);
+                    isNew = null;
                     return true;
                 }
             }
