@@ -11,7 +11,11 @@
         vm.updateUser = updateUser;
         var id = $routeParams["id"];
         function init() {
-            vm.user = UserService.findUserById(id);
+             UserService
+                 .findUserById(id)
+                 .then(function (res) {
+                    vm.user  = res.data;
+                 });
         }
 
         init();
