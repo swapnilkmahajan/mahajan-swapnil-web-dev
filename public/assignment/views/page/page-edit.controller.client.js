@@ -16,10 +16,18 @@
         vm.userId = $routeParams.userId;
         vm.pageId = $routeParams.pageId;
         function init() {
-            var page = PageService.findPageById(vm.pageId);
-            if(page){
-                vm.page = page;
-            }
+            PageService
+                .findPageById(vm.pageId)
+                .then(function (res) {
+                    var page = res.data;
+                    if(page._id){
+                        vm.page = page;
+                    }
+                    else{
+                        vm.error = "Invalid page request"
+                    }
+                });
+
         }
         init();
 
