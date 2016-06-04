@@ -1,0 +1,24 @@
+/**
+ * Created by Swapnil on 6/4/2016.
+ */
+module.exports = function(app){
+
+    var pages = [
+        { "_id": "321", "name": "Post 1", "websiteId": "456" },
+        { "_id": "432", "name": "Post 2", "websiteId": "456" },
+        { "_id": "543", "name": "Post 3", "websiteId": "456" }
+    ];
+
+    app.get("/api/website/:websiteId/page", findAllPagesForWebsite);
+
+    function findAllPagesForWebsite(req, res){
+        var websiteId = req.params.websiteId;
+        var resultSet = [];
+        for (var i in pages){
+            if(pages[i].websiteId === websiteId){
+                resultSet.push(pages[i]);
+            }
+        }
+        res.json(resultSet);
+    }
+}
