@@ -17,6 +17,18 @@ module.exports = function(app){
     ];
 
     app.get("/api/page/:pageId/widget",findAllWidgetsForPage);
+    app.get("/api/widget/:widgetId",findWidgetById);
+
+    function findWidgetById(req, res){
+        var widgetId = req.params.widgetId;
+        for(var i in widgets){
+            if(widgets[i]._id === widgetId){
+                res.json(widgets[i]);
+                return;
+            }
+        }
+        res.json({});
+    }
 
     function findAllWidgetsForPage(req, res){
         var pageId = req.params.pageId;

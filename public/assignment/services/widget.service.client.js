@@ -6,7 +6,6 @@
         .module("WebAppMaker")
         .factory("WidgetService", WidgetService);
 
-    var isNew = null;
 
     function WidgetService($http) {
         var api = {
@@ -15,13 +14,9 @@
             findWidgetById: findWidgetById,
             updateWidget: updateWidget,
             deleteWidget: deleteWidget,
-            getNewStatus: getNewStatus
         };
         return api;
 
-        function getNewStatus(){
-            return isNew;
-        }
 
         function createWidget(pageId, widget) {
             var newWidget = {
@@ -31,7 +26,6 @@
             }
 
             widgets.push(newWidget);
-            isNew = newWidget._id;
             return newWidget;
         }
 
@@ -41,12 +35,8 @@
         }
 
         function findWidgetById(widgetId){
-            for(var i in widgets){
-                if(widgets[i]._id === widgetId){
-                    return widgets[i];
-                }
-            }
-            return null;
+            var url = "/api/widget/"+widgetId;
+            return $http.get(url);
         }
 
         function updateWidget(widgetId, widget){
@@ -83,7 +73,6 @@
                     }
                 }
             }
-            isNew = null;
             return updated;
         }
 
@@ -91,7 +80,6 @@
             for(var i in widgets){
                 if(widgets[i]._id === widgetId){
                     widgets.splice(i,1);
-                    isNew = null;
                     return true;
                 }
             }
