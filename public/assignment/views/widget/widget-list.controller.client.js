@@ -12,7 +12,11 @@
         vm.userId = $routeParams.userId;
         vm.websiteId = $routeParams.websiteId;
         function init(){
-            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+            WidgetService
+                .findWidgetsByPageId(vm.pageId)
+                .then(function (res) {
+                    vm.widgets = res.data;
+                });
         }
         init();
 
