@@ -11,9 +11,24 @@ module.exports = function(app){
         {_id: "456", username: "jannunzi", password: "jannunzi", firstName: "Jose",   lastName: "Annunzi" }
     ];
 
+    app.put("/api/user/:userId", updateUser);
     app.get("/api/user", getUsers);
     app.get("/api/user/:userId", findUserById);
     app.post("/api/user", createUser);
+
+    function updateUser(req, res) {
+        var id  = req.params.userId;
+        var newUser =  req.body;
+        for(var i in users) {
+            if(users[i]._id === id) {
+                users[i].firstName = newUser.firstName;
+                users[i].lastName = newUser.lastName;
+                res.sendStatus(200);
+                return;
+            }
+        }
+        res.sendStatus(400);
+    }
 
     function createUser(req, res){
         var user = req.body;

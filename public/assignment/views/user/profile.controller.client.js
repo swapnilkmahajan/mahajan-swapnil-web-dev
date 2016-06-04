@@ -21,13 +21,16 @@
         init();
 
         function updateUser(newUser) {
-            var status = UserService.updateUser(id, newUser);
-
-            if(status === true){
-                vm.success = "Success";
-            }else{
-                vm.failed = "Error";
-            }
+            UserService
+                .updateUser(id, newUser)
+                .then(
+                    function (response) {
+                        vm.success = "Your profile was saved.";
+                    },
+                    function (error) {
+                        vm.error = "Unable to update profile";
+                    }
+                );
         }
     }
 })();
