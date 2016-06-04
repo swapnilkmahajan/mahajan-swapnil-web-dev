@@ -18,7 +18,47 @@ module.exports = function(app){
 
     app.get("/api/page/:pageId/widget",findAllWidgetsForPage);
     app.get("/api/widget/:widgetId",findWidgetById);
+    app.put("/api/widget/:widgetId", updateWidget);
 
+    function updateWidget(req, res) {
+        var widgetId = req.params.widgetId;
+        var widget = req.body;
+        var updated = 400;
+        for(var i in widgets){
+            if (widgets[i]._id === widgetId) {
+                switch (widget.widgetType) {
+                    case "HEADER":
+                        widgets[i].name = widget.name;
+                        widgets[i].text= widget.text;
+                        widgets[i].size = parseInt(widget.size);
+                        updated = 200;
+                        break;
+                    case "IMAGE":
+                        widgets[i].name = widget.name;
+                        widgets[i].text= widget.text;
+                        widgets[i].url = widget.url;
+                        widgets[i].width = widget.width;
+                        widgets[i].upload = widget.upload;
+                        updated = 200;
+                        break;
+                    case "HTML":
+                        updated = 200;
+                        break;
+                    case "YOUTUBE":
+                        widgets[i].name = widget.name;
+                        widgets[i].text= widget.text;
+                        widgets[i].url = widget.url;
+                        widgets[i].width = widget.width;
+                        updated = 200;
+                        break;
+                    default:
+                        updated = 400;
+                }
+            }
+        }
+        res.sendStatus(updated);
+
+    }
     function findWidgetById(req, res){
         var widgetId = req.params.widgetId;
         for(var i in widgets){

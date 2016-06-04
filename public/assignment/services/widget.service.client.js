@@ -40,40 +40,8 @@
         }
 
         function updateWidget(widgetId, widget){
-            var updated = false;
-            for(var i in widgets){
-                if (widgets[i]._id === widgetId) {
-                    switch (widget.widgetType) {
-                        case "HEADER":
-                            widgets[i].name = widget.name;
-                            widgets[i].text= widget.text;
-                            widgets[i].size = parseInt(widget.size);
-                            updated = true;
-                            break;
-                        case "IMAGE":
-                            widgets[i].name = widget.name;
-                            widgets[i].text= widget.text;
-                            widgets[i].url = widget.url;
-                            widgets[i].width = widget.width;
-                            widgets[i].upload = widget.upload;
-                            updated = true;
-                            break;
-                        case "HTML":
-                            updated = true;
-                            break;
-                        case "YOUTUBE":
-                            widgets[i].name = widget.name;
-                            widgets[i].text= widget.text;
-                            widgets[i].url = widget.url;
-                            widgets[i].width = widget.width;
-                            updated = true;
-                            break;
-                        default:
-                            updated = false;
-                    }
-                }
-            }
-            return updated;
+            var url = "/api/widget/"+widgetId;
+            return $http.put(url, widget)
         }
 
         function deleteWidget(widgetId){

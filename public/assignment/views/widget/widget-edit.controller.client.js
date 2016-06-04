@@ -18,18 +18,24 @@
                 .findWidgetById(vm.widgetId)
                 .then(function (res) {
                     vm.widget =res.data;
+                    if(!vm.widget._id){
+                        vm.error = "No widget found."
+                    }
                 });
         }
         init();
 
         function updateWidget(newWidget){
-            var status = WidgetService.updateWidget(vm.widgetId, newWidget);
-
-            if (status === true){
-                $location.url("/user/"+ vm.userId + "/website/"+ vm.websiteId +"/page/"+ vm.pageId+"/widget");
-            }else {
-                vm.error = "Error updating widget";
-            }
+            WidgetService
+                .updateWidget(vm.widgetId, newWidget)
+                .then(
+                    function () {
+                        $location.url("/user/"+ vm.userId + "/website/"+ vm.websiteId +"/page/"+ vm.pageId+"/widget");
+                    },
+                    function () {
+                        vm.error = "Error updating widget";
+                    }
+                );
         }
 
         function deleteWidget(widgetId){
