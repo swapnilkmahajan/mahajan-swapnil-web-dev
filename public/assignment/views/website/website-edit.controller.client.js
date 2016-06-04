@@ -28,21 +28,30 @@
 
 
         function updateWebsite(newWebsite){
-            var status = WebsiteService.updateWebsite(id, newWebsite);
-
-            if(status === true){
-                vm.success = "Success";
-                $location.url("/user/"+userId+"/website/");
-            }else{
-                vm.failed = "Error";
-            }
+            WebsiteService
+                .updateWebsite(id, newWebsite)
+                .then(
+                    function () {
+                        vm.success = "Changes saved.";
+                        $location.url("/user/"+userId+"/website/");
+                    },
+                    function () {
+                        vm.error = "Can not update website.";
+                    }
+                );
         }
         
         function removeWebsite(id) {
-            var status = WebsiteService.deleteWebsite(id);
-            if (status === true){
-                $location.url("/user/"+userId+"/website/");
-            }
+            WebsiteService
+                .deleteWebsite(id)
+                .then(
+                    function () {
+                        $location.url("/user/"+userId+"/website/");
+                    },
+                    function () {
+                        vm.error = "Can not delete website.";
+                    }
+                );
         }
     }
 })();
