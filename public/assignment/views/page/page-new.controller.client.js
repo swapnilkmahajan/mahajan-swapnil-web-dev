@@ -18,14 +18,21 @@
         init();
         
         function createPage(name, title) {
-            var newPage = PageService.createPage(vm.websiteId,name, title);
-            
-            if (newPage){
-                $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
+            if (!name){
+                vm.error ="Name can not be empty";
+                return;
             }
-            else{
-                vm.error ="Can not add new website";
-            }
+            PageService
+                .createPage(vm.websiteId,name, title)
+                .then(function (res) {
+                    var newPage = res.data;
+                    if (newPage){
+                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
+                    }
+                    else{
+                        vm.error ="Can not add new page";
+                    }
+                });
         }
     }
 })();

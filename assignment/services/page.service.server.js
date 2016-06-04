@@ -13,7 +13,14 @@ module.exports = function(app){
     app.get("/api/page/:pageId", findPageById);
     app.put("/api/page/:pageId", updatePage);
     app.delete("/api/page/:pageId", deletePage);
+    app.post("/api/website/:websiteId/page", createPage);
 
+    function createPage(req, res){
+        var newPage = req.body;
+        newPage._id =(new Date).getTime().toString();
+        pages.push(newPage);
+        res.json(newPage);
+    }
 
     function deletePage(req, res){
         var pageId = req.params.pageId;

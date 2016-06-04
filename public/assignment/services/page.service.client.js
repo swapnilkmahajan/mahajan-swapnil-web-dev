@@ -19,14 +19,12 @@
 
         function createPage(websiteId, name, title) {
             var newPage = {
-                _id :(new Date).getTime().toString(),
                 websiteId: websiteId,
                 name:name,
                 title:title
             };
-            
-            pages.push(newPage);
-            return newPage;
+            var url = "/api/website/"+websiteId+"/page";
+            return $http.post(url, newPage);
         }
 
         function findPageByWebsiteId(websiteId) {
