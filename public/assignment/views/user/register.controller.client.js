@@ -11,20 +11,31 @@
         var vm = this;
         vm.registerUser = registerUser;
 
-        function registerUser(newUser) {
-            
-            if(UserService.findUserByUsername(newUser.username)){
-                vm.error = "Username already used";
-            }else{
-                if(newUser.password === newUser.verify){
-                    UserService.createUser(newUser);
-                    var user = UserService.findUserByUsernameAndPassword(newUser.username,newUser.password);
-                    $location.url("/user/"+user._id);
-                }
-                else{
-                    vm.error = "Password and Verify Password do not match";
-                }
-            }
+        function registerUser(username, password, verify) {
+            UserService
+                .findUserByUsername(username)
+                .then(function (res) {
+                    var user = res.data;
+                    if(user._id){
+                        vm.error = "Username already used";
+                    }else{
+                        if(password === verify){
+                            UserService
+                                .createUser(username, password)
+                                .then(function (res) {
+                                    var user = res.data;
+                                    if (user._id){
+                                        $location.url("/user/"+user._id);
+                                    }else{
+                                        vm.error = "Failed create new user";
+                                    }
+                                });
+                        }
+                        else{
+                            vm.error = "Password and Verify Password do not match";
+                        }
+                    }
+                });
         }
     }
 })();

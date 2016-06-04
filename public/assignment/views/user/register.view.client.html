@@ -3,19 +3,19 @@
         {{model.error}}
     </div>
     <h1>Register</h1>
-    <input ng-model="model.user.username"
+    <input ng-model="username"
            class="form-control"
            type="text"
            placeholder="username"/>
-    <input ng-model="model.user.password"
+    <input ng-model="password"
            class="form-control"
            type="password"
            placeholder="password"/>
-    <input ng-model="model.user.verify"
+    <input ng-model="verify"
            class="form-control"
            type="password"
            placeholder="verify password"/>
-    <a ng-click="model.registerUser(model.user)"
+    <a ng-click="model.registerUser(username, password, verify)"
        class="btn btn-primary btn-block">Register</a>
     <a class="btn btn-danger btn-block"
        href="#/login">Cancel</a>

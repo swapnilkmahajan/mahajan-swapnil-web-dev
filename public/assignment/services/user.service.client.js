@@ -18,10 +18,12 @@
         };
         return api;
 
-        function createUser(newUser) {
-            newUser._id = (new Date).getTime().toString();
-            delete newUser.verify;
-            users.push(newUser);
+        function createUser(username, password) {
+            var newUser ={
+                username : username,
+                password: password
+            };
+            return $http.post("/api/user", newUser);
         }
 
         function deleteUser(id) {
@@ -33,17 +35,11 @@
         }
 
         function findUserByUsername(username){
-            for(var i in users){
-                if(users[i].username === username){
-                    var id = users[i]._id;
-                    return users[i];
-                }
-            }
-            return null;
+            var url = "/api/user?username=" + username;
+            return $http.get(url);
         }
 
         function findUserByUsernameAndPassword(username, password){
-
             var url = "/api/user?username=" + username + "&password=" + password;
             return $http.get(url);
         }

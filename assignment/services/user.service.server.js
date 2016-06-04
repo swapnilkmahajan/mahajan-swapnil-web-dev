@@ -13,6 +13,14 @@ module.exports = function(app){
 
     app.get("/api/user", getUsers);
     app.get("/api/user/:userId", findUserById);
+    app.post("/api/user", createUser);
+
+    function createUser(req, res){
+        var user = req.body;
+        user._id = (new Date()).getTime().toString();
+        users.push(user);
+        res.json(user);
+    }
 
     function findUserById(req,res){
         id = req.params.userId;
