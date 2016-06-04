@@ -25,14 +25,12 @@
 
         function createWebsite(userId, name, desc){
             var newWebsite = {
-                _id : (new Date).getTime().toString(),
                 name: name,
                 description: desc,
-                developerId:userId
-            };
-
-            websites.push(newWebsite);
-            return newWebsite;
+                developerId: userId
+            }
+            var url = "/api/user/"+ userId+"/website";
+            return $http.post(url, newWebsite);
         }
 
         function updateWebsite(websiteId, website){

@@ -16,6 +16,16 @@ module.exports = function(app){
     app.get("/api/website/:websiteId", findWebsiteById);
     app.put("/api/website/:websiteId", updateWebsite);
     app.delete("/api/website/:websiteId", deleteWebsite);
+    app.post("/api/user/:userId/website", createWebsite);
+
+    function createWebsite(req, res){
+
+        var newWebsite = req.body;
+
+        newWebsite._id = (new Date).getTime().toString();
+        websites.push(newWebsite);
+        res.json(newWebsite);
+    }
 
     function deleteWebsite(req, res){
         var websiteId = req.params.websiteId;

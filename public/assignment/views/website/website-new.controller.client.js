@@ -16,13 +16,18 @@
         init();
 
         function createWebsite(name, description) {
-            var newWebsite = WebsiteService.createWebsite(vm.userId,name, description);
+            WebsiteService
+                .createWebsite(vm.userId,name, description)
+                .then(function (res) {
+                    var newWebsite = res.data;
+                    if (newWebsite._id){
+                        $location.url("/user/"+vm.userId+"/website");
+                    }else{
+                        vm.error = "Unable to create website";
+                    }
+                })
 
-            if (newWebsite){
-                $location.url("/user/"+vm.userId+"/website");
-            }else{
-                vm.error = "Unable to create website";
-            }
+
         }
     }
 })();
