@@ -18,12 +18,18 @@
         function createWidget(widgetType) {
             var widget={};
             widget.widgetType = widgetType;
-            var newWidget = WidgetService.createWidget(vm.pageId, widget);
-
-            if (newWidget){
-                vm.widget =  WidgetService.findWidgetById(newWidget._id);
-                $location.url("/user/"+ vm.userId + "/website/"+ vm.websiteId +"/page/"+ vm.pageId+"/widget/"+newWidget._id);
-            }
+            WidgetService
+                .createWidget(vm.pageId, widget)
+                .then(function (res) {
+                    var newWidget = res.data;
+                    if (newWidget._id){
+                        vm.widget =  newWidget;
+                        $location.url("/user/"+ vm.userId + "/website/"+ vm.websiteId +"/page/"+ vm.pageId+"/widget/"+newWidget._id);
+                    }
+                    else{
+                        vm.error("Can not create new widget");
+                    }
+                });
         }
     }
 })();

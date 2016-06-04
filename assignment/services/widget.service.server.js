@@ -16,10 +16,20 @@ module.exports = function(app){
         { "_id": "789", "widgetType": "HTML", "pageId": "321", "text": "<p>Lorem ipsum</p>"}
     ];
 
+    app.post("/api/page/:pageId/widget",createWidget);
     app.get("/api/page/:pageId/widget",findAllWidgetsForPage);
     app.get("/api/widget/:widgetId",findWidgetById);
     app.put("/api/widget/:widgetId", updateWidget);
     app.delete("/api/widget/:widgetId", deleteWidget);
+
+    function createWidget(req, res){
+        var pageId = req.params.pageId;
+        var newWidget = req.body;
+        newWidget._id=(new Date()).getTime().toString();
+
+        widgets.push(newWidget);
+        res.json(newWidget);
+    }
 
     function deleteWidget(req, res){
         var widgetId = req.params.widgetId;

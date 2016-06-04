@@ -20,13 +20,12 @@
 
         function createWidget(pageId, widget) {
             var newWidget = {
-                _id: (new Date()).getTime().toString(),
                 pageId: pageId,
                 widgetType : widget.widgetType
             }
 
-            widgets.push(newWidget);
-            return newWidget;
+            var url = "/api/page/"+pageId+"/widget";
+            return $http.post(url, newWidget);
         }
 
         function findWidgetsByPageId(pageId){
