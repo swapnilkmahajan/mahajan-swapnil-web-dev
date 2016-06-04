@@ -15,10 +15,14 @@
         var id = $routeParams.websiteId;
         var userId = $routeParams.userId;
         function init() {
-            var website = WebsiteService.findWebsitesById(id)
-            if(website){
-                vm.website = website;
-            }
+            WebsiteService
+                .findWebsitesById(id)
+                .then(function (res) {
+                    var website = res.data;
+                    if(website._id){
+                        vm.website = website;
+                    }
+                });
         }
         init();
 

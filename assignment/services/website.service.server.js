@@ -13,6 +13,18 @@ module.exports = function(app){
     ];
 
     app.get("/api/user/:userId/website", findAllWebsitesForUser);
+    app.get("/api/website/:websiteId", findWebsiteById);
+    
+    function findWebsiteById(req, res) {
+        var websiteId = req.params.websiteId;
+        for (var i in websites){
+            if(websites[i]._id === websiteId){
+                res.json(websites[i]);
+                return;
+            }
+        }
+        res.json({});
+    }
     
     function findAllWebsitesForUser(req, res) {
         var userId = req.params.userId;
