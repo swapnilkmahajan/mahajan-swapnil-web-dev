@@ -15,7 +15,7 @@
         { "_id": "789", "name": "Chess", "description":"Chess Description", "developerId": "234" }
     ];
 
-    function WebsiteService() {
+    function WebsiteService($http) {
         var api = {
             findWebsitesByUser: findWebsitesByUser,
             findWebsitesById:findWebsitesById,
@@ -68,14 +68,10 @@
         }
 
         function findWebsitesByUser(userId){
-            var resultSet = [];
 
-            for(var i in websites){
-                if(websites[i].developerId === userId){
-                 resultSet.push(websites[i]);
-                }
-            }
-            return resultSet;
+            var url = "/api/user/"+ userId + "/website";
+            return $http.get(url);
+
         }
     }
 })();
