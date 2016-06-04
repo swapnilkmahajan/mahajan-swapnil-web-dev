@@ -39,12 +39,16 @@
         }
 
         function deleteWidget(widgetId){
-            var status = WidgetService.deleteWidget(widgetId);
-            if (status === true){
-                $location.url("/user/"+ vm.userId + "/website/"+ vm.websiteId +"/page/"+ vm.pageId+"/widget");
-            }else {
-                vm.error = "Error deleting widget";
-            }
+            WidgetService
+                .deleteWidget(widgetId)
+                .then(
+                    function () {
+                        $location.url("/user/"+ vm.userId + "/website/"+ vm.websiteId +"/page/"+ vm.pageId+"/widget");
+                    },
+                    function () {
+                        vm.error = "Error deleting widget";
+                    }
+                );
         }
     }
 })();

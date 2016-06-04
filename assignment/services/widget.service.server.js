@@ -19,6 +19,19 @@ module.exports = function(app){
     app.get("/api/page/:pageId/widget",findAllWidgetsForPage);
     app.get("/api/widget/:widgetId",findWidgetById);
     app.put("/api/widget/:widgetId", updateWidget);
+    app.delete("/api/widget/:widgetId", deleteWidget);
+
+    function deleteWidget(req, res){
+        var widgetId = req.params.widgetId;
+        for(var i in widgets){
+            if(widgets[i]._id === widgetId){
+                widgets.splice(i,1);
+                res.sendStatus(200);
+                return;
+            }
+        }
+        res.sendStatus(400);
+    }
 
     function updateWidget(req, res) {
         var widgetId = req.params.widgetId;
