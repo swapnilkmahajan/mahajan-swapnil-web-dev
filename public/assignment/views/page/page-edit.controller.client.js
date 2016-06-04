@@ -32,26 +32,29 @@
         init();
 
         function updatePage(page){
-            var result = PageService.updatePage(vm.pageId, page);
-
-            if (result){
-                $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-            }
-            else{
-                vm.error = "Error updating page";
-            }
+            PageService
+                .updatePage(vm.pageId, page)
+                .then(
+                    function(){
+                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
+                    },
+                    function(){
+                        vm.error = "Error updating page";
+                    }
+                );
         }
         
         function removePage(pageId) {
-            var result = PageService.deletePage(pageId);
-
-            if (result){
-                $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-            }
-            else{
-                vm.error = "Can not delete Page";
-            }
+            PageService
+                .deletePage(pageId)
+                .then(
+                    function(){
+                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
+                    },
+                    function(){
+                        vm.error = "Can not delete Page";
+                    }
+                );
         }
-        
     }
 })();
