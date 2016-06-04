@@ -15,6 +15,19 @@ module.exports = function(app){
     app.get("/api/user", getUsers);
     app.get("/api/user/:userId", findUserById);
     app.post("/api/user", createUser);
+    app.delete("/api/user/:userId", deleteUser);
+
+    function deleteUser(req, res) {
+        var id  = req.params.userId;
+        for (var i in users) {
+            if (users[i]._id === id) {
+                users.splice(i,1);
+                res.sendStatus(200);
+                return;
+            }
+        }
+        res.sendStatus(400);
+    }
 
     function updateUser(req, res) {
         var id  = req.params.userId;

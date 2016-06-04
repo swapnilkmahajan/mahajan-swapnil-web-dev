@@ -27,11 +27,8 @@
         }
 
         function deleteUser(id) {
-            for (var i in users) {
-                if (users[i]._id === id) {
-                    users.splice(i,1);
-                }
-            }
+            var url = "/api/user/" + id;
+            return $http.delete(url);
         }
 
         function findUserByUsername(username){
