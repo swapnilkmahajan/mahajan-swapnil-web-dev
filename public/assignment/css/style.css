@@ -28,3 +28,7 @@ p.navbar-text.pull-left {
     border-bottom-left-radius: 8px;
     opacity: 0.74;
 }
+
+.flickr-top-buffer {
+    margin-top:20px;
+}
