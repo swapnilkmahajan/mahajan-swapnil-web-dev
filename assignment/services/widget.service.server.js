@@ -60,7 +60,10 @@ module.exports = function(app){
                         widgets[i].name = widget.name;
                         widgets[i].text= widget.text;
                         widgets[i].url = widget.url;
-                        widgets[i].width = widget.width;
+                        if(widget.width)
+                            widgets[i].width = widget.width;
+                        else
+                            widgets[i].width = "100%";
                         widgets[i].upload = widget.upload;
                         updated = 200;
                         break;
@@ -71,7 +74,10 @@ module.exports = function(app){
                         widgets[i].name = widget.name;
                         widgets[i].text= widget.text;
                         widgets[i].url = widget.url;
-                        widgets[i].width = widget.width;
+                        if(widget.width)
+                            widgets[i].width = widget.width;
+                        else
+                            widgets[i].width = "100%";
                         updated = 200;
                         break;
                     default:
