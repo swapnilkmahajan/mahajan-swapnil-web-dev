@@ -33,7 +33,7 @@
                             .then(
                                 function(){
                                     vm.success = "successfully updated image url."
-                                    $location.url("/user/"+ vm.userId + "/website/"+ vm.websiteId +"/page/"+ vm.pageId+"/widget");
+                                    $location.url("/user/"+ vm.userId + "/website/"+ vm.websiteId +"/page/"+ vm.pageId+"/widget/"+vm.widgetId);
                                 },
                                 function(){
                                     vm.error="Can not update the URL for Image.";
