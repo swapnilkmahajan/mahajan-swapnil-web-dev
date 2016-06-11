@@ -26,8 +26,7 @@
         function createWebsite(userId, name, desc){
             var newWebsite = {
                 name: name,
-                description: desc,
-                developerId: userId
+                description: desc
             }
             var url = "/api/user/"+ userId+"/website";
             return $http.post(url, newWebsite);
