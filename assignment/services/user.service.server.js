@@ -68,7 +68,7 @@ module.exports = function(app, models){
                 function (user){
                     res.json(user);
                 },
-                function (){
+                function (error){
                     res.statusCode(404).send(error);
                 }
             );
@@ -82,7 +82,7 @@ module.exports = function(app, models){
                 function (user){
                     res.json(user);
                 },
-                function (){
+                function (error){
                     res.statusCode(404).send(error);
                 }
             );
@@ -121,7 +121,7 @@ module.exports = function(app, models){
                 function (users){
                     res.json(users);
                 },
-                function (){
+                function (error){
                     res.statusCode(404).send(error);
                 });
     }
