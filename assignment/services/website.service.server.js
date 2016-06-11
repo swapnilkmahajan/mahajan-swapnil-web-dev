@@ -1,16 +1,10 @@
 /**
  * Created by Swapnil on 6/4/2016.
  */
-module.exports = function(app){
+module.exports = function(app, models){
 
-    var websites = [
-        { "_id": "123", "name": "Facebook", "description":"Facebook Description", "developerId": "456" },
-        { "_id": "234", "name": "Tweeter",  "description":"Tweeter Description ", "developerId": "456" },
-        { "_id": "456", "name": "Gizmodo", "description":"Gizmodo Description", "developerId": "456" },
-        { "_id": "567", "name": "Tic Tac Toe","description":"Tic Tac Toe  Description", "developerId": "123" },
-        { "_id": "678", "name": "Checkers", "description":"Checkers  Description", "developerId": "123" },
-        { "_id": "789", "name": "Chess", "description":"Chess Description", "developerId": "234" }
-    ];
+    var websiteModel = models.websiteModel;
+    var userModel = models.userModel;
 
     app.get("/api/user/:userId/website", findAllWebsitesForUser);
     app.get("/api/website/:websiteId", findWebsiteById);
@@ -19,12 +13,42 @@ module.exports = function(app){
     app.post("/api/user/:userId/website", createWebsite);
 
     function createWebsite(req, res){
-
+        var userId = req.params.userId;
         var newWebsite = req.body;
-
-        newWebsite._id = (new Date).getTime().toString();
-        websites.push(newWebsite);
-        res.json(newWebsite);
+        websiteModel
+            .createWebsiteForUser(userId, newWebsite)
+            .then(
+                function (newWebsite){
+                    userModel
+                        .findUserById(userId)
+                        .then(
+                            // found parent userObject for this website
+                            function(user){
+                                if (user){ // if valid user
+                                    user.websites.push(newWebsite._id); // add the website to the user's websites
+                                    userModel       // update the user in the database
+                                        .updateUser(userId, user)
+                                        .then(
+                                            function(status){
+                                                res.json(newWebsite);
+                                            },
+                                            function (error) {
+                                                res.statusCode(404).send(error);
+                                            }
+                                        )
+                                }
+                                else{
+                                    res.statusCode(404).send(error);
+                                }
+                            },
+                            function(){
+                                res.statusCode(404).send(error);
+                            }
+                        )
+                },
+                function (){
+                    res.statusCode(404).send(error);
+                })
     }
 
     function deleteWebsite(req, res){
@@ -55,24 +79,31 @@ module.exports = function(app){
     
     function findWebsiteById(req, res) {
         var websiteId = req.params.websiteId;
-        for (var i in websites){
-            if(websites[i]._id === websiteId){
-                res.json(websites[i]);
-                return;
-            }
-        }
-        res.json({});
+
+        websiteModel
+            .findWebsiteById(websiteId)
+            .then(
+                function (website){
+                    res.json(website);
+                },
+                function (error){
+                    res.statusCode(404).send(error);
+                }
+            );
     }
     
     function findAllWebsitesForUser(req, res) {
         var userId = req.params.userId;
-        var resultSet = [];
 
-        for(var i in websites){
-            if(websites[i].developerId === userId){
-             resultSet.push(websites[i]);
-            }
-        }
-        res.json(resultSet);
+        websiteModel
+            .findAllWebsitesForUser(userId)
+            .then(
+                function (websites){
+                    res.json(websites);
+                },
+                function (){
+                    res.statusCode(404).send(error);
+                }
+            );
     }
 };
