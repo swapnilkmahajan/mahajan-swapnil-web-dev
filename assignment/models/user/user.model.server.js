@@ -46,6 +46,8 @@ module.exports = function () {
                 $set: {
                     firstName: user.firstName,
                     lastName: user.lastName,
+                    email: user.email,
+                    websites: user.websites
                 }
             });
     }
