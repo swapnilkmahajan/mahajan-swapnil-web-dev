@@ -14,9 +14,17 @@
         function init() {
              UserService
                  .findUserById(id)
-                 .then(function (res) {
-                    vm.user  = res.data;
-                 });
+                 .then(
+                     function (res) {
+                         var user =res.data;
+                        if (user && user._id){
+                            vm.user = user;
+                        }
+                     },
+                     function () {
+                         vm.error = "Error Finding user";
+                     }
+                 );
         }
 
         init();
