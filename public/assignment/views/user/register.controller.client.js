@@ -16,7 +16,7 @@
                 .findUserByUsername(username)
                 .then(function (res) {
                     var user = res.data;
-                    if(user._id){
+                    if(user){
                         vm.error = "Username already used";
                     }else{
                         if(password === verify){
@@ -24,7 +24,7 @@
                                 .createUser(username, password)
                                 .then(function (res) {
                                     var user = res.data;
-                                    if (user._id){
+                                    if (user){
                                         $location.url("/user/"+user._id);
                                     }else{
                                         vm.error = "Failed create new user";
