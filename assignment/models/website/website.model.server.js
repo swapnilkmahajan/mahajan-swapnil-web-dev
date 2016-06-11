@@ -6,7 +6,6 @@ module.exports = function () {
 
 
     var mongoose = require("mongoose");
-    var UserSchema  = require("../user/user.schema.server")();
     var WebsiteSchema = require("./website.schema.server")();
     var Website = mongoose.model("Website", WebsiteSchema);
 
@@ -34,7 +33,15 @@ module.exports = function () {
     }
 
     function updateWebsite(websiteId, website){
-
+        delete website._id;
+        return Website
+            .update({_id: websiteId},{
+                $set: {
+                    name: website.name,
+                    description: website.description,
+                    pages: website.pages
+                }
+            });
     }
 
     function deleteWebsite(websiteId){

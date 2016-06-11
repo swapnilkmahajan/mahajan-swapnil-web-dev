@@ -66,15 +66,27 @@ module.exports = function(app, models){
     function updateWebsite(req, res){
         var websiteId = req.params.websiteId;
         var website = req.body;
-        for (var i in websites){
-            if(websites[i]._id === websiteId){
-                websites[i].name = website.name;
-                websites[i].description = website.description;
-                res.sendStatus(200);
-                return;
-            }
-        }
-        res.sendStatus(400);
+
+        websiteModel
+            .updateWebsite(websiteId, website)
+            .then(
+                function (stats) {
+                    console.log(stats);
+                    res.sendStatus(200);
+                },
+                function (error) {
+                    res.statusCode(404).send(error);
+                }
+            );
+        // for (var i in websites){
+        //     if(websites[i]._id === websiteId){
+        //         websites[i].name = website.name;
+        //         websites[i].description = website.description;
+        //         res.sendStatus(200);
+        //         return;
+        //     }
+        // }
+        // res.sendStatus(400);
     }
     
     function findWebsiteById(req, res) {
