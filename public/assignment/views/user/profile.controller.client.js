@@ -19,6 +19,8 @@
                          var user =res.data;
                         if (user && user._id){
                             vm.user = user;
+                        }else{
+                                vm.error = "Invalid user request";
                         }
                      },
                      function () {
