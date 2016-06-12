@@ -20,7 +20,7 @@
                 .findPageById(vm.pageId)
                 .then(function (res) {
                     var page = res.data;
-                    if(page._id){
+                    if(page && page._id){
                         vm.page = page;
                     }
                     else{
