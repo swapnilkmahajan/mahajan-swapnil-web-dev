@@ -22,8 +22,11 @@
     </div>
 </nav>
 
-<div class="container">
-    <div ng-repeat="widget in model.widgets" class="jga-widget">
+<div class="container" wam-sortable
+     wam-callback="model.reorderWidget(start, end)">
+
+    <div ng-repeat="widget in model.widgets | orderBy : 'order'"
+         class="jga-widget">
         <div class="jga-widget-tool">
             <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{widget._id}}">
                 <span class="glyphicon glyphicon-cog"></span>
@@ -40,13 +43,17 @@
                 <h6 ng-switch-when="6">{{widget.text}}</h6>
             </div>
             <div ng-switch-when="IMAGE" class="widget-top-margin">
-                <img ng-src="{{widget.url}}" width="{{widget.width}}"/>
+                <img ng-src="{{widget.url}}"
+                     width="{{widget.width}}"/>
             </div>
             <div ng-switch-when="HTML" class="widget-top-margin">
                 <div ng-bind-html="model.getSafeHtml(widget)"></div>
             </div>
             <div ng-switch-when="YOUTUBE" class="widget-top-margin">
-                <iframe width="{{widget.width}}" ng-src="{{model.getSafeUrl(widget)}}" frameborder="0" allowfullscreen></iframe>
+                <iframe width="{{widget.width}}"
+                        ng-src="{{model.getSafeUrl(widget)}}"
+                        frameborder="0"
+                        allowfullscreen></iframe>
             </div>
             <div ng-switch-default class="widget-top-margin">
                 Unknown Widget

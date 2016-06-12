@@ -6,7 +6,6 @@
         .module("WebAppMaker")
         .factory("WidgetService", WidgetService);
 
-
     function WidgetService($http) {
         var api = {
             createWidget: createWidget,
@@ -14,9 +13,14 @@
             findWidgetById: findWidgetById,
             updateWidget: updateWidget,
             deleteWidget: deleteWidget,
+            reorderWidget : reorderWidget
         };
         return api;
 
+        function reorderWidget(pageId, start, end){
+            var url = "/page/"+pageId+"/widget?start="+start+"&end="+end;
+            return $http.put(url);
+        }
 
         function createWidget(pageId, widget) {
             var newWidget = {

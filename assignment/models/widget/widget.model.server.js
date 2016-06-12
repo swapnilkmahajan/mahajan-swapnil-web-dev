@@ -35,41 +35,63 @@ module.exports = function () {
 
     function updateWidget(widgetId, widget){
         delete widget._id;
-        var rowsVar = null;
-        if (widget.rows){
-            rowsVar =parseInt(widget.rows);
-        }
-
-        var sizeVar = null;
-        if (widget.size){
-            sizeVar =parseInt(widget.size);
-        }
-
         return Widget
-            .update({_id: widgetId},{
-                $set: {
-                    name: widget.name,
-                    text: widget.text,
-                    placeholder: widget.placeholder,
-                    description: widget.description,
-                    url: widget.url,
-                    width: widget.width,
-                    height: widget.height,
-                    rows: rowsVar,
-                    size: sizeVar,
-                    class: widget.class,
-                    icon:widget.icon,
-                    deletable: widget.deletable,
-                    formatted: widget.formatted,
-                }
-            });
+            .update(
+                {
+                    _id: widgetId
+                },
+                {
+                    $set: widget
+                });
     }
 
     function deleteWidget(widgetId){
         return Widget.remove({"_id": widgetId});
     }
 
-    function reorderWidget(pageId, start, end){
+    function reorderWidget(pageId, start, end) {
+        return Widget
+            .find({"_page": pageId})
+            .then(
+                function(widgets){
+                    widgets.forEach(
+                        function(widget) {
+                            if(start < end)
+                            {
+                                if(widget.order < start || widget.order > end);//unchanged widgets
+                                else if(widget.order === start)
+                                {
+                                    widget.order = end;
+                                    widget.save(function(){});
+                                }
+                                else if((widget.order > start) && (widget.order <= end))
+                                {
+                                    widget.order--;
+                                    widget.save(function(){});
+                                }
+                            }
+                            else{
 
+                                if(widget.order < end || widget.order > start); // Unchanged
+                                else if(widget.order === start)
+                                {
+                                    widget.order = end;
+                                    widget.save(function(){});
+                                }
+                                else if((widget.order >= end) && (widget.order < start))
+                                {
+                                    widget.order++;
+                                    widget.save(function(){});
+                                }
+                            }
+                        }
+
+                    )
+                },
+                function (error) {
+                    return null;
+                }
+            );
     }
+
 };

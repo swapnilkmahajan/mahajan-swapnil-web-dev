@@ -7,6 +7,7 @@
         var vm = this;
         vm.getSafeHtml = getSafeHtml;
         vm.getSafeUrl=getSafeUrl;
+        vm.reorderWidget = reorderWidget;
 
         vm.pageId = $routeParams.pageId;
         vm.userId = $routeParams.userId;
@@ -14,15 +15,26 @@
         function init(){
             WidgetService
                 .findWidgetsByPageId(vm.pageId)
-                .then(function (res) {
-                    vm.widgets = res.data;
-                });
-            $(".container")
-                .sortable({
-                    axis:'y'
-                });
+                .then(
+                    function (res) {
+                        vm.widgets = res.data;
+                    },
+                    function (error) {
+                        vm.error = "Unable to find widgets for page:"+ vm.pageId;
+                    }
+                );
+            // $(".container")
+            //     .sortable({
+            //         axis:'y'
+            //     });
         }
         init();
+
+        function reorderWidget(start, end) {
+            WidgetService
+                .reorderWidget(vm.pageId, start, end)
+                .then(init);
+        }
 
         function getSafeHtml(widget) {
             return $sce.trustAsHtml(widget.text);

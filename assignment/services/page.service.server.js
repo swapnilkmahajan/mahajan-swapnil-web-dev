@@ -72,22 +72,25 @@ module.exports = function(app, models){
                                                             function (delStat) {
                                                                 console.log("Deleted from website and page");
                                                                 res.sendStatus(200);
+                                                                return;
                                                             },
                                                             function (error) {
                                                                 console.log("Deleted from website error at page");
                                                                 res.statusCode(400).send(error);
+                                                                return;
                                                             }
                                                         ); // end of deletePage
                                                 },
                                                 function (error) {
                                                     console.log("Deleted from website failed");
                                                     res.statusCode(400).send(error);
+                                                    return;
                                                 }
                                             ); //end ofupdateWebsite
                                     }
                                 }
-                                console.log("page id not found in website");
-                                res.statusCode(400).send(error);
+                                // console.log("page id not found in website");
+                                // res.statusCode(400).send(error);
                             },
                             function (error) {
                                 console.log("no website with this id");
