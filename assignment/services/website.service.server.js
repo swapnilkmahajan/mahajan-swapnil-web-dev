@@ -44,7 +44,7 @@ module.exports = function(app, models){
                             function(){
                                 res.statusCode(404).send(error);
                             }
-                        )
+                        );
                 },
                 function (){
                     res.statusCode(404).send(error);
@@ -53,14 +53,58 @@ module.exports = function(app, models){
 
     function deleteWebsite(req, res){
         var websiteId = req.params.websiteId;
-        for (var i in websites) {
-            if (websites[i]._id === websiteId) {
-                websites.splice(i,1);
-                res.sendStatus(200);
-                return;
-            }
-        }
-        res.sendStatus(400);
+        websiteModel
+            .findWebsiteById(websiteId) // find website for finding user id
+            .then(
+                function(website){
+                    var userId = website._user;
+                    websiteModel
+                        .deleteWebsite(website._id) // delete website for website collection
+                        .then(
+                            function(stats){
+                                console.log("website deleted, now removing from uses"+ stats);
+                                userModel
+                                    .findUserById(userId) // get user object
+                                    .then(
+                                        function(user){
+                                            if (user){ // if valid user
+                                                for( var w in user.websites){
+                                                    if(user.websites[w].equals(website._id)){
+                                                        user.websites.splice(w,1);
+                                                        userModel       // update the user in the database
+                                                            .updateUser(userId, user)
+                                                            .then(
+                                                                function(stats){
+                                                                    console.log("website deleted from user as well ! success"+ stats);
+                                                                    res.sendStatus(200);
+                                                                },
+                                                                function (error) {
+                                                                    res.statusCode(400).send(error);
+                                                                }
+                                                            );
+                                                    }
+                                                }
+                                                res.statusCode(400).send("website not found in user websites");
+                                            }
+                                            else{
+                                                res.statusCode(404).send(error);
+                                            }
+                                        },
+                                        function(){
+                                            res.statusCode(404).send(error);
+                                        }
+                                    );
+                            },
+                            function(error){
+                                res.statusCode(400).send(error);
+                            }
+                        )
+
+                },
+                function(error){
+                    res.statusCode(404).send(error);
+                }
+            );
     }
     
     function updateWebsite(req, res){
@@ -78,15 +122,6 @@ module.exports = function(app, models){
                     res.statusCode(404).send(error);
                 }
             );
-        // for (var i in websites){
-        //     if(websites[i]._id === websiteId){
-        //         websites[i].name = website.name;
-        //         websites[i].description = website.description;
-        //         res.sendStatus(200);
-        //         return;
-        //     }
-        // }
-        // res.sendStatus(400);
     }
     
     function findWebsiteById(req, res) {

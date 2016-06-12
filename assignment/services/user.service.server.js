@@ -20,7 +20,7 @@ module.exports = function(app, models){
             .then(
                 function(stats) {
                     console.log(stats);
-                    res.send(200);
+                    res.sendStatus(200);
                 },
                 function(error) {
                     res.statusCode(404).send(error);

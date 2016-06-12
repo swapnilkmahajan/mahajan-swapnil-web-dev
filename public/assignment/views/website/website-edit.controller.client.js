@@ -19,8 +19,10 @@
                 .findWebsitesById(id)
                 .then(function (res) {
                     var website = res.data;
-                    if(website._id){
+                    if(website && website._id){
                         vm.website = website;
+                    }else{
+                        vm.error = "No Such website";
                     }
                 });
         }
