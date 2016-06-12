@@ -45,7 +45,7 @@ module.exports = function () {
     }
 
     function deleteWebsite(websiteId){
-
+        return Website.remove({_id: websiteId});
     }
 
 }
