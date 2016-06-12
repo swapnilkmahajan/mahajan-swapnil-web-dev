@@ -45,7 +45,7 @@ module.exports = function(app, models){
                             .then(
                                 function (stats) {
                                     console.log("uploaded the image to the widget");
-                                    res.redirect("/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
+                                    //res.redirect("/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
                                 },
                                 function (error) {
                                     console.log("upload image to the widget failed");
@@ -58,14 +58,8 @@ module.exports = function(app, models){
                         res.statusCode(400).send(error);
                     }
                 );
-
-            /*for (var i in widgets) {
-                if (widgets[i]._id === widgetId) {
-                    widgets[i].url = "/uploads/" + filename;
-                }
-            }*/
         }
-        // res.redirect("/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
+        res.redirect("/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
     }
 
 
@@ -110,14 +104,56 @@ module.exports = function(app, models){
 
     function deleteWidget(req, res){
         var widgetId = req.params.widgetId;
-        for(var i in widgets){
-            if(widgets[i]._id === widgetId){
-                widgets.splice(i,1);
-                res.sendStatus(200);
-                return;
-            }
-        }
-        res.sendStatus(400);
+        widgetModel
+            .findWidgetById(widgetId)
+            .then(
+                function (widget) {
+                    var pageId = widget._page;
+                    pageModel
+                        .findPageById(pageId)
+                        .then(
+                            function (page) {
+                                for (var w in page.widgets){
+                                    if (page.widgets[w].equals(widgetId)){
+                                        page.widgets.splice(w,1);
+                                        pageModel
+                                            .updatePage(pageId, page)
+                                            .then(
+                                                function (statPage) {
+                                                    console.log("update page don, deleting widget now");
+                                                    widgetModel
+                                                        .deleteWidget(widgetId)
+                                                        .then(
+                                                            function (statPage) {
+                                                                res.sendStatus(200);
+                                                            },
+                                                            function (error) {
+                                                                console.log("Deleting widget failed");
+                                                                res.statusCode(400).send(error);
+                                                            }
+                                                        ) // deleteWidget
+                                                },
+                                                function (error) {
+                                                    console.log("Updating page failed after removal");
+                                                    res.statusCode(400).send(error);
+                                                }
+                                            ) //end updatePage
+                                    }
+                                }
+                                console.log("Widget not found in page's widget list");
+                                res.statusCode(400).send(error);
+                            },
+                            function (error) {
+                                console.log("Page with id not found");
+                                res.statusCode(400).send(error);
+                            }
+                        ); // end findPageById
+                },
+                function (error) {
+                    console.log("Widget with id not found");
+                    res.statusCode(400).send(error);
+                }
+            ); //findWidgetById
     }
 
     function updateWidget(req, res) {
@@ -182,7 +218,7 @@ module.exports = function(app, models){
                 function (widget) {
                     res.json(widget);
                 },
-                function () {
+                function (error) {
                     res.statusCode(400).send(error);
                 }
             );
@@ -196,7 +232,7 @@ module.exports = function(app, models){
                 function (widgets) {
                     res.json(widgets);
                 },
-                function () {
+                function (error) {
                     res.statusCode(400).send(error);
                 }
             );
