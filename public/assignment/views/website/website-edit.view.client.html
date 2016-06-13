@@ -61,10 +61,13 @@
             <label for="website-name">Website Name</label>
             <input ng-model="model.website.name"
                    type="text"
+                   required
                    class="form-control"
                    id="website-name"
-                   value="Facebook"
                    placeholder="Google">
+            <span ng-show="model.noWebsiteName">
+                {{model.noWebsiteName}}
+            </span>
         </div>
         <div class="form-group">
             <label for="website-description">Website Description</label>
@@ -72,7 +75,8 @@
                           rows="4"
                           id="website-description"
                           class="form-control"
-                          placeholder="Description">Facebook is a corporation and an online social networking service headquartered in Menlo Park, California, in the United States. Its website was launched on February 4, 2004 by Mark Zuckerberg with his Harvard College roommates and fellow students Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes.[7][8][9] The founders had initially limited the website's membership to Harvard students, but later expanded it to colleges in the Boston area, the Ivy League, and Stanford University. It gradually added support for students at various other universities and later to high school students. Since 2006, anyone in general aged 13 and older has been allowed to become a registered user of the website, though variations exist in the minimum age requirement, depending on applicable local laws. Its name comes from the face book directories often given to American university students.</textarea>
+                          placeholder="Description">
+                </textarea>
         </div>
     </form>
 

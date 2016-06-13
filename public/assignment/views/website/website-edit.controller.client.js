@@ -30,17 +30,23 @@
 
 
         function updateWebsite(newWebsite){
-            WebsiteService
-                .updateWebsite(id, newWebsite)
-                .then(
-                    function () {
-                        vm.success = "Changes saved.";
-                        $location.url("/user/"+userId+"/website/");
-                    },
-                    function () {
-                        vm.error = "Can not update website.";
-                    }
-                );
+            vm.noWebsiteName = null;
+            vm.error = null;
+            if (!newWebsite.name){
+                vm.noWebsiteName = "Website name is required";
+            }else {
+                WebsiteService
+                    .updateWebsite(id, newWebsite)
+                    .then(
+                        function () {
+                            vm.success = "Changes saved.";
+                            $location.url("/user/" + userId + "/website/");
+                        },
+                        function () {
+                            vm.error = "Can not update website.";
+                        }
+                    );
+            }
         }
         
         function removeWebsite(id) {

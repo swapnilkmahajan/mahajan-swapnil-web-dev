@@ -16,18 +16,22 @@
         init();
 
         function createWebsite(name, description) {
-            WebsiteService
-                .createWebsite(vm.userId,name, description)
-                .then(function (res) {
-                    var newWebsite = res.data;
-                    if (newWebsite._id){
-                        $location.url("/user/"+vm.userId+"/website");
-                    }else{
-                        vm.error = "Unable to create website";
-                    }
-                })
-
-
+            vm.noWebsiteName = null;
+            vm.error = null;
+            if (!name){
+                vm.noWebsiteName = "Website name is required";
+            }else {
+                WebsiteService
+                    .createWebsite(vm.userId, name, description)
+                    .then(function (res) {
+                        var newWebsite = res.data;
+                        if (newWebsite._id) {
+                            $location.url("/user/" + vm.userId + "/website");
+                        } else {
+                            vm.error = "Unable to create website";
+                        }
+                    })
+            }
         }
     }
 })();
