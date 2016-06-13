@@ -60,6 +60,7 @@ module.exports = function(app, models){
                 .then(
                     function (widget) {
                         widget.url = "/uploads/" + filename;
+                        console.log(widget.url);
                         widgetModel
                             .updateWidget(widgetId, widget)
                             .then(
