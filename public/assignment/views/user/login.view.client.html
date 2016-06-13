@@ -1,16 +1,29 @@
-<div class="container">
+<div class="container" ng-form name="myForm" novalidate>
 
     <div ng-if="model.error" class="alert alert-danger">
         {{model.error}}
     </div>
 
     <h1>Login</h1>
-    <input ng-model="username" type="text"
+    <input ng-model="username"
+           autocorrect="off"
+           autocapitalize="off"
+           required
+           type="text"
            class="form-control"
+           name="username"
            placeholder="username"/>
-    <input ng-model="password" type="password"
+    <span ng-show="model.noUser">
+        Username is required
+    </span>
+    <input ng-model="password"
+           type="password"
+           required
            class="form-control"
            placeholder="password"/>
+    <span ng-show="model.noPass">
+        Password is required
+    </span>
     <a ng-click="model.login(username, password)"
        class="btn btn-primary btn-block">Login</a>
     <a class="btn btn-success btn-block"

@@ -6,15 +6,27 @@
     <input ng-model="username"
            class="form-control"
            type="text"
+           required
            placeholder="username"/>
+        <span ng-show="model.noUser">
+        Username is required
+    </span>
     <input ng-model="password"
            class="form-control"
            type="password"
+           required
            placeholder="password"/>
+        <span ng-show="model.noPass">
+        {{model.noPass}}
+    </span>
     <input ng-model="verify"
            class="form-control"
            type="password"
+           required
            placeholder="verify password"/>
+        <span ng-show="model.noVPass">
+        {{model.noVPass}}
+    </span>
     <a ng-click="model.registerUser(username, password, verify)"
        class="btn btn-primary btn-block">Register</a>
     <a class="btn btn-danger btn-block"
