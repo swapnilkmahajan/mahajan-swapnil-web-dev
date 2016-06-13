@@ -41,6 +41,9 @@
                    id="new-page-name"
                    placeholder="Page Name">
         </div>
+        <span ng-show="model.noPageName">
+                {{model.noPageName}}
+        </span>
         <div class="form-group">
             <label for="new-page-title">Title</label>
             <input ng-model="title"

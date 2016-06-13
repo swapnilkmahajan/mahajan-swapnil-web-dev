@@ -32,16 +32,23 @@
         init();
 
         function updatePage(page){
-            PageService
-                .updatePage(vm.pageId, page)
-                .then(
-                    function(){
-                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-                    },
-                    function(){
-                        vm.error = "Error updating page";
-                    }
-                );
+            vm.error = null;
+            vm.noPageName = null;
+
+            if (!page.name){
+                vm.noPageName ="Page Name is required";
+            }else {
+                PageService
+                    .updatePage(vm.pageId, page)
+                    .then(
+                        function () {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                        },
+                        function () {
+                            vm.error = "Error updating page";
+                        }
+                    );
+            }
         }
         
         function removePage(pageId) {

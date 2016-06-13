@@ -18,21 +18,24 @@
         init();
         
         function createPage(name, title) {
+            vm.error = null;
+            vm.noPageName = null;
+
             if (!name){
-                vm.error ="Name can not be empty";
-                return;
+                vm.noPageName ="Page Name is required";
+            }else {
+                PageService
+                    .createPage(vm.websiteId, name, title)
+                    .then(function (res) {
+                        var newPage = res.data;
+                        if (newPage) {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
+                        }
+                        else {
+                            vm.error = "Can not add new page";
+                        }
+                    });
             }
-            PageService
-                .createPage(vm.websiteId,name, title)
-                .then(function (res) {
-                    var newPage = res.data;
-                    if (newPage){
-                        $location.url("/user/"+vm.userId+"/website/"+vm.websiteId+"/page");
-                    }
-                    else{
-                        vm.error ="Can not add new page";
-                    }
-                });
         }
     }
 })();
