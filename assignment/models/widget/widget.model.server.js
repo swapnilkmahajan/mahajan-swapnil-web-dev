@@ -37,6 +37,7 @@ module.exports = function () {
         delete widget._id;
         console.log("Widget Id : " + widgetId);
         console.log("Widget Id : " + widget.url);
+        console.log(widget);
         return Widget
             .update(
                 {
