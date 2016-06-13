@@ -8,7 +8,7 @@ module.exports = function () {
 
     var WidgetSchema = mongoose.Schema({
         _page: {type: mongoose.Schema.ObjectId, ref: "Page"},
-        type: {type: String, enum:['HEADING', 'IMAGE', 'YOUTUBE', 'HTML', 'INPUT']},
+        type: {type: String, enum:['HEADING', 'IMAGE', 'YOUTUBE', 'HTML', 'INPUT', 'TEXT']},
         name: String,
         text: String,
         palceholder : String,
