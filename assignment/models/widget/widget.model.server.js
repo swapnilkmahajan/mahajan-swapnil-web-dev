@@ -38,6 +38,18 @@ module.exports = function () {
         console.log("Widget Id : " + widgetId);
         console.log("Widget Id : " + widget.url);
         console.log(widget);
+        if (widget.type === "IMAGE"){
+            return Widget
+                .update({_id: widgetId}, {
+                    $set: {
+                        name: widget.name,
+                        text: widget.text,
+                        url: widget.url,
+                        width: widget.url
+                    }
+                });
+        }
+
         return Widget
             .update(
                 {
