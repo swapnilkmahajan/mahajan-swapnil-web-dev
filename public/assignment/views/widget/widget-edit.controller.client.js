@@ -26,16 +26,23 @@
         init();
 
         function updateWidget(newWidget){
-            WidgetService
-                .updateWidget(vm.widgetId, newWidget)
-                .then(
-                    function () {
-                        $location.url("/user/"+ vm.userId + "/website/"+ vm.websiteId +"/page/"+ vm.pageId+"/widget");
-                    },
-                    function () {
-                        vm.error = "Error updating widget";
-                    }
-                );
+            vm.error = null;
+            vm.noWidgetName = null;
+
+            if (!newWidget.name){
+                vm.noWidgetName ="Widget Name is required";
+            }else {
+                WidgetService
+                    .updateWidget(vm.widgetId, newWidget)
+                    .then(
+                        function () {
+                            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                        },
+                        function () {
+                            vm.error = "Error updating widget";
+                        }
+                    );
+            }
         }
 
         function deleteWidget(widgetId){

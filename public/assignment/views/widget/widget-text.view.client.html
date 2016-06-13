@@ -25,6 +25,9 @@
     <div>
         Name
         <input ng-model="model.widget.name" class="form-control"/>
+        <span ng-show="model.noWidgetName">
+                {{model.noWidgetName}}
+        </span>
         Text
         <input ng-model="model.widget.text" class="form-control"/>
         Rows
