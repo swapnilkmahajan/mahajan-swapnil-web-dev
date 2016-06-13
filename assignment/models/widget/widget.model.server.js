@@ -45,7 +45,7 @@ module.exports = function () {
                         name: widget.name,
                         text: widget.text,
                         url: widget.url,
-                        width: widget.url
+                        width: widget.width
                     }
                 });
         }

@@ -66,7 +66,7 @@ module.exports = function(app, models){
                             .then(
                                 function (stats) {
                                     console.log("uploaded the image to the widget");
-                                    //res.redirect("/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
+                                    res.redirect("/assignment/#/user/"+userId+"/website/"+websiteId+"/page/"+pageId+"/widget/"+widgetId);
                                 },
                                 function (error) {
                                     console.log("upload image to the widget failed");
