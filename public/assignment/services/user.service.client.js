@@ -16,9 +16,18 @@
             updateUser: updateUser,
             deleteUser: deleteUser,
             login: login,
-            logout: logout
+            logout: logout,
+            register: register
         };
         return api;
+
+        function register(username, password){
+            var newUser ={
+                username : username,
+                password: password
+            };
+            return $http.post("/api/register", newUser);
+        }
 
         function logout(){
             return $http.post("/api/logout");

@@ -7,7 +7,7 @@
         .module("WebAppMaker")
         .controller("RegisterController", RegisterController);
 
-    function RegisterController($location, UserService) {
+    function RegisterController($location, UserService, $rootScope) {
         var vm = this;
         vm.registerUser = registerUser;
 
@@ -38,29 +38,41 @@
             }
             else {
                 UserService
-                    .findUserByUsername(username)
-                    .then(function (res) {
-                        var user = res.data;
-                        if (user) {
-                            vm.error = "Username already used";
-                        } else {
-                            if (password === verify) {
-                                UserService
-                                    .createUser(username, password)
-                                    .then(function (res) {
-                                        var user = res.data;
-                                        if (user) {
-                                            $location.url("/user/" + user._id);
-                                        } else {
-                                            vm.error = "Failed create new user";
-                                        }
-                                    });
-                            }
-                            else {
-                                vm.error = "Password and Verify Password do not match";
-                            }
+                    .register(username, password)
+                    .then(
+                        function(response) {
+                            var user = response.data;
+                            $rootScope.currentUser = user;
+                            $location.url("/user/"+user._id);
+                        },
+                        function (error) {
+                            vm.error = "ERROR !! "+ error.data;
                         }
-                    });
+                    );
+
+                // .findUserByUsername(username)
+                    // .then(function (res) {
+                    //     var user = res.data;
+                    //     if (user) {
+                    //         vm.error = "Username already used";
+                    //     } else {
+                    //         if (password === verify) {
+                    //             UserService
+                    //                 .createUser(username, password)
+                    //                 .then(function (res) {
+                    //                     var user = res.data;
+                    //                     if (user) {
+                    //                         $location.url("/user/" + user._id);
+                    //                     } else {
+                    //                         vm.error = "Failed create new user";
+                    //                     }
+                    //                 });
+                    //         }
+                    //         else {
+                    //             vm.error = "Password and Verify Password do not match";
+                    //         }
+                    //     }
+                    // });
             }
         }
     }

@@ -26,15 +26,20 @@
             else {
                 UserService
                     .login(username, password)
-                    .then(function (res) {
-                        var user = res.data;
-                        if (user) {
-                            $rootScope.currentUser = user;
-                            $location.url("/user/" + user._id);
-                        } else {
-                            vm.error = "User not found";
+                    .then(
+                        function (res) {
+                            var user = res.data;
+                            if (user) {
+                                $rootScope.currentUser = user;
+                                $location.url("/user/" + user._id);
+                            } else {
+                                vm.error = "User not found";
+                            }
+                        },
+                        function (error) {
+                            vm.error = error.data;
                         }
-                    });
+                    );
             }
         }
     }

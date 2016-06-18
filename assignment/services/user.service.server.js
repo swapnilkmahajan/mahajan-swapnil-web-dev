@@ -4,6 +4,7 @@
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require("bcrypt-nodejs");
 
 module.exports = function(app, models){
 
@@ -17,10 +18,51 @@ module.exports = function(app, models){
     app.post("/api/user", createUser);
     app.delete("/api/user/:userId", deleteUser);
     app.get("/api/loggedin", loggedin);
+    app.post("/api/register", register);
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
+
+    function register(req, res){
+        var username = req.body.username;
+        var newUser = req.body;
+
+        userModel
+            .findUserByUsername(username)
+            .then(
+                function(user){
+                    if (user){
+                        res.status(400).send("Username already in use");
+                        return;
+                    }
+                    else{
+                        newUser.password = bcrypt.hashSync(newUser.password);
+                        return userModel
+                            .createUser(newUser);
+                    }
+                },
+                function(err){
+                    res.status(400).send("Error creating user");
+                }
+            ).then(
+                function(user){
+                    if(user){
+                        req.login(user, function(err) {
+                            if(err) {
+                                res.status(400).send("Error Redirecting user");
+                            } else {
+                                res.json(user);
+                            }
+                        });
+                    }
+                },
+                function (error) {
+                    res.statusCode(404).send("Error creating user");
+                }
+            );
+
+    }
 
     function loggedin(req, res){
         res.send(req.isAuthenticated() ? req.user : '0');
@@ -50,10 +92,10 @@ module.exports = function(app, models){
 
     function localStrategy(username, password, done) {
         userModel
-            .findUserByCredentials(username, password)
+            .findUserByUsername(username)
             .then(
                 function(user) {
-                    if(user.username === username && user.password === password) {
+                    if(user && bcrypt.compareSync(password, user.password)) {
                         return done(null, user);
                     } else {
                         return done(null, false);
@@ -170,7 +212,7 @@ module.exports = function(app, models){
             findAllUsers();
         }
     }
-    
+
     function findAllUsers(){
         userModel
             .findAllUsers()
