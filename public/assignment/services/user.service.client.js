@@ -15,9 +15,14 @@
             findUserByUsername:findUserByUsername,
             updateUser: updateUser,
             deleteUser: deleteUser,
-            login: login
+            login: login,
+            logout: logout
         };
         return api;
+
+        function logout(){
+            return $http.post("/api/logout");
+        }
 
         function login(username, password) {
             var newUser ={
