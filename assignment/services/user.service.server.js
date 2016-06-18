@@ -2,16 +2,62 @@
  * Created by Swapnil on 6/4/2016.
  */
 
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 module.exports = function(app, models){
 
     var userModel = models.userModel;
 
-
+    app.post("/api/login",passport.authenticate('local'), login);
     app.put("/api/user/:userId", updateUser);
     app.get("/api/user", getUsers);
     app.get("/api/user/:userId", findUserById);
     app.post("/api/user", createUser);
     app.delete("/api/user/:userId", deleteUser);
+
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
+    function serializeUser(user, done) {
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        userModel
+            .findUserById(user._id)
+            .then(
+                function(user){
+                    done(null, user);
+                },
+                function(err){
+                    done(err, null);
+                }
+            );
+    }
+
+    function localStrategy(username, password, done) {
+        userModel
+            .findUserByCredentials(username, password)
+            .then(
+                function(user) {
+                    if(user.username === username && user.password === password) {
+                        return done(null, user);
+                    } else {
+                        return done(null, false);
+                    }
+                },
+                function(err) {
+                    if (err) { return done(err); }
+                }
+            );
+    }
+
+    function login(req, res){
+        var user = req.user;
+        res.json(user);
+    }
 
     function deleteUser(req, res) {
         var id  = req.params.userId;

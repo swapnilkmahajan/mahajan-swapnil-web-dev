@@ -25,7 +25,7 @@
             }
             else {
                 UserService
-                    .findUserByUsernameAndPassword(username, password)
+                    .login(username, password)
                     .then(function (res) {
                         var user = res.data;
                         if (user) {
