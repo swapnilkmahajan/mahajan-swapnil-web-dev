@@ -87,7 +87,7 @@
                     deferred.resolve();
                 } else {
                     deferred.reject();
-                    $location.url('/');
+                    $location.url('/login');
                 }
             });
             return deferred.promise;
