@@ -16,10 +16,15 @@ module.exports = function(app, models){
     app.get("/api/user/:userId", findUserById);
     app.post("/api/user", createUser);
     app.delete("/api/user/:userId", deleteUser);
+    app.get("/api/loggedin", loggedin);
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
+
+    function loggedin(req, res){
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
 
     function logout(req, res){
         req.logout();
