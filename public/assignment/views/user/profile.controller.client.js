@@ -11,7 +11,7 @@
         vm.updateUser = updateUser;
         vm.deleteUser = deleteUser;
         vm.logout = logout;
-        var id = $routeParams["id"];
+        var id = $rootScope.currentUser._id;
 
         function init() {
              UserService
