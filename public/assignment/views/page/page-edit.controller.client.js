@@ -32,12 +32,8 @@
         init();
 
         function updatePage(page){
-            vm.error = null;
-            vm.noPageName = null;
-
-            if (!page.name){
-                vm.noPageName ="Page Name is required";
-            }else {
+            vm.editPageForm.$submitted=true;
+            if (page.name) {
                 PageService
                     .updatePage(vm.pageId, page)
                     .then(

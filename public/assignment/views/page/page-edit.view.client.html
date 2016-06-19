@@ -40,18 +40,23 @@
         <strong>Success!</strong> {{model.success}}
     </div>
 
-    <form>
+    <form name="model.editPageForm" novalidate>
         <div class="form-group">
             <label for="page-name">Name</label>
             <input ng-model="model.page.name"
                    type="text"
                    class="form-control"
                    id="page-name"
-                   placeholder="Page Name">
+                   placeholder="Page Name"
+                   name="name"
+                   required
+                   ng-class="{submitted:model.editPageForm.name.$invalid && model.editPageForm.$submitted}">
+            <span ng-show="model.editPageForm.$submitted && model.editPageForm.name.$invalid"
+                  ng-class="{submitted:model.editPageForm.name.$invalid && model.editPageForm.$submitted}">
+            <span class="fa fa-exclamation-triangle"></span>
+                Please enter Page Name
+            </span>
         </div>
-        <span ng-show="model.noPageName">
-                {{model.noPageName}}
-        </span>
         <div class="form-group">
             <label for="page-title">Title</label>
             <input ng-model="model.page.title"

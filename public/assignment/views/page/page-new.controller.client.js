@@ -18,12 +18,9 @@
         init();
         
         function createPage(name, title) {
-            vm.error = null;
-            vm.noPageName = null;
 
-            if (!name){
-                vm.noPageName ="Page Name is required";
-            }else {
+            vm.newPageForm.$submitted = true;
+            if(name) {
                 PageService
                     .createPage(vm.websiteId, name, title)
                     .then(function (res) {

@@ -32,18 +32,23 @@
         </button>
         <strong>Error!</strong> {{model.error}}
     </div>
-    <form>
+    <form name="model.newPageForm" novalidate>
         <div class="form-group">
             <label for="new-page-name">Name</label>
             <input ng-model="name"
                    type="text"
                    class="form-control"
                    id="new-page-name"
-                   placeholder="Page Name">
+                   name="name"
+                   placeholder="Page Name"
+                   required
+                   ng-class="{submitted:model.newPageForm.name.$invalid && model.newPageForm.$submitted}">
+            <span ng-show="model.newPageForm.$submitted && model.newPageForm.name.$invalid"
+                  ng-class="{submitted:model.newPageForm.name.$invalid && model.newPageForm.$submitted}">
+            <span class="fa fa-exclamation-triangle"></span>
+                Please enter Page Name
+            </span>
         </div>
-        <span ng-show="model.noPageName">
-                {{model.noPageName}}
-        </span>
         <div class="form-group">
             <label for="new-page-title">Title</label>
             <input ng-model="title"
@@ -58,9 +63,9 @@
 <nav class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
         <div class="navbar-text pull-right">
-                <a href="#/user/{{model.userId}}">
-                    <span class="glyphicon glyphicon-user"></span>
-                </a>
+            <a href="#/user/{{model.userId}}">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
         </div>
     </div>
 </nav>
