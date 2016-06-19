@@ -13,28 +13,25 @@
 
         function registerUser(username, password, verify) {
             vm.error =null;
-            vm.noUser = null;
-            vm.noPass = null;
-            vm.noVPass = null;
 
             if (!username){
-                vm.noUser = "Username is Required";
+                vm.error = "Username is Required";
                 if (!password) {
-                    vm.noPass = "Password is required";
+                    vm.error += " Password is required";
                 }
                 if (!verify) {
-                    vm.noVPass = "Verify Password is required";
+                    vm.error += " Verify Password is required";
                 }
             } else if (!password){
-                vm.noPass = "Password is required";
+                vm.error = "Password is required";
                 if (!verify) {
-                    vm.noVPass = "Verify Password is required";
+                    vm.error += " Verify Password is required";
                 }
             }else if (!verify){
-                vm.noVPass = "Password and Verify Password must Match"
+                vm.error = "Password and Verify Password must Match"
             }
             else if (password !== verify){
-                vm.noVPass = "Password and Verify Password must Match"
+                vm.error = "Password and Verify Password must Match"
             }
             else {
                 UserService
@@ -49,30 +46,6 @@
                             vm.error = "ERROR !! "+ error.data;
                         }
                     );
-
-                // .findUserByUsername(username)
-                    // .then(function (res) {
-                    //     var user = res.data;
-                    //     if (user) {
-                    //         vm.error = "Username already used";
-                    //     } else {
-                    //         if (password === verify) {
-                    //             UserService
-                    //                 .createUser(username, password)
-                    //                 .then(function (res) {
-                    //                     var user = res.data;
-                    //                     if (user) {
-                    //                         $location.url("/user/" + user._id);
-                    //                     } else {
-                    //                         vm.error = "Failed create new user";
-                    //                     }
-                    //                 });
-                    //         }
-                    //         else {
-                    //             vm.error = "Password and Verify Password do not match";
-                    //         }
-                    //     }
-                    // });
             }
         }
     }
