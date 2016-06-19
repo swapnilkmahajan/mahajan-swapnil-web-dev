@@ -30,11 +30,8 @@
 
 
         function updateWebsite(newWebsite){
-            vm.noWebsiteName = null;
-            vm.error = null;
-            if (!newWebsite.name){
-                vm.noWebsiteName = "Website name is required";
-            }else {
+            vm.editWebsiteForm.$submitted=true;
+            if (newWebsite.name) {
                 WebsiteService
                     .updateWebsite(id, newWebsite)
                     .then(
@@ -48,7 +45,7 @@
                     );
             }
         }
-        
+
         function removeWebsite(id) {
             WebsiteService
                 .deleteWebsite(id)
