@@ -1,16 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="viewport" content="initial-scale=1.25, user-scalable = no">
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="/assignment/css/style.css" rel="stylesheet"/>
-</head>
-<body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-inner">
@@ -45,7 +32,7 @@
         </button>
         <strong>Error!</strong> {{model.error}}
     </div>
-    <form>
+    <form name="model.newWebsiteForm" novalidate>
         <div class="form-group">
             <label for="new-website-name">Website Name</label>
             <input ng-model="name"
@@ -53,10 +40,12 @@
                    required
                    class="form-control"
                    id="new-website-name"
-                   placeholder="Google"/>
-            <span ng-show="model.noWebsiteName">
-                {{model.noWebsiteName}}
-            </span>
+                   placeholder="Google"
+                   name="name"
+                   ng-class="{submitted:model.newWebsiteForm.name.$invalid && model.newWebsiteForm.$submitted}"/>
+            <span ng-show="model.newWebsiteForm.$submitted && model.newWebsiteForm.name.$invalid"
+                  ng-class="{submitted:model.newWebsiteForm.name.$invalid && model.newWebsiteForm.$submitted}">
+            <span class="fa fa-exclamation-triangle"></span>Please enter Website Name</span>
         </div>
         <div class="form-group">
             <label for="new-website-description">Website Description</label>
@@ -78,5 +67,3 @@
         </div>
     </div>
 </nav>
-</body>
-</html>
