@@ -60,3 +60,21 @@ p.navbar-text.pull-left {
     width: 100%;
     height: 100%;
 }
+
+form.ng-submitted input.ng-invalid{
+    border: solid #a94442;
+}
+
+form.ng-invalid.ng-submitted span{
+    color: #a94442;
+    margin-bottom: 5px;
+}
+
+span.submitted {
+    color: #a94442;
+    margin-bottom: 5px;
+}
+
+input.submitted{
+    border: solid #a94442;
+}

@@ -1,36 +1,51 @@
-<div class="container" ng-form name="myForm" novalidate>
+<div class="container">
 
-    <div ng-if="model.error" class="alert alert-danger">
+    <div ng-if="model.error"
+         class="alert alert-danger">
         {{model.error}}
+    </div>
+    <div class="alert alert-danger"
+         ng-show="loginForm.$invalid && loginForm.$submitted">
+        Form has errors
     </div>
 
     <h1>Login</h1>
-    <input ng-model="username"
-           autocorrect="off"
-           autocapitalize="off"
-           required
-           type="text"
-           class="form-control"
-           name="username"
-           placeholder="username"/>
-    <span ng-show="model.noUser">
-        Username is required
-    </span>
-    <input ng-model="password"
-           type="password"
-           required
-           class="form-control"
-           placeholder="password"/>
-    <span ng-show="model.noPass">
-        Password is required
-    </span>
-    <a ng-click="model.login(username, password)"
-       class="btn btn-primary btn-block">Login</a>
-    <a class="btn btn-success btn-block"
-       href="#/register">Register</a>
-    <a href="/auth/facebook"
-       class="btn btn-primary btn-block">
-        <span class="fa fa-facebook"></span>
-        Facebook
-    </a>
+    <form name="loginForm" novalidate>
+        <div class="form-group">
+            <input ng-model="username"
+                   type="text"
+                   name="username"
+                   class="form-control"
+                   placeholder="username"
+                   autocorrect="off"
+                   autocapitalize="off"
+                   required/>
+        <span ng-show="loginForm.$submitted && loginForm.username.$invalid">
+            <span class="fa fa-exclamation-triangle"></span>
+            Please enter username
+        </span>
+        </div>
+        <div class="form-group">
+            <input ng-model="password"
+                   type="password"
+                   name="password"
+                   class="form-control"
+                   placeholder="password"
+                   required/>
+        <span ng-show="loginForm.$submitted && loginForm.password.$invalid">
+            <span class="fa fa-exclamation-triangle"></span>
+            Please enter password
+        </span>
+        </div>
+        <button type="submit"
+                ng-click="model.login(username, password)"
+                class="btn btn-primary btn-block">Login</button>
+        <a href="/auth/facebook"
+           class="btn btn-primary btn-block">
+            <span class="fa fa-facebook"></span>
+            Facebook
+        </a>
+        <a class="btn btn-success btn-block"
+           href="#/register">Register</a>
+    </form>
 </div>
