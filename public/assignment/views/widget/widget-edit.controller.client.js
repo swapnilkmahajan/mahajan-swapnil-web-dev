@@ -26,12 +26,8 @@
         init();
 
         function updateWidget(newWidget){
-            vm.error = null;
-            vm.noWidgetName = null;
-
-            if (!newWidget.name){
-                vm.noWidgetName ="Widget Name is required";
-            }else {
+            vm.editWidgetForm.$submitted=true;
+            if(newWidget.name) {
                 WidgetService
                     .updateWidget(vm.widgetId, newWidget)
                     .then(

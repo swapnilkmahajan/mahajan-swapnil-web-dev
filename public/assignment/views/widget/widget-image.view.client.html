@@ -24,53 +24,52 @@
     <div  ng-if="model.error"
           class="alert alert-danger alert-dismissible"
           role="alert">
-        <button type="button"
-                class="close"
-                data-dismiss="alert"
-                aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
         <strong>Error!</strong> {{model.error}}
     </div>
-
-    <div class="form-group">
-        <label for="widget-image-name">Name</label>
-        <input ng-model="model.widget.name"
-               type="text"
-               class="form-control"
-               id="widget-image-name"
-               placeholder="image name"/>
-        <span ng-show="model.noWidgetName">
-                {{model.noWidgetName}}
+    <form name="model.editWidgetForm" novalidate>
+        <div class="form-group">
+            <label for="widget-image-name">Name</label>
+            <input ng-model="model.widget.name"
+                   type="text"
+                   class="form-control"
+                   id="widget-image-name"
+                   placeholder="image name"
+                   name="name"
+                   required
+                   ng-class="{submitted:model.editWidgetForm.name.$invalid && model.editWidgetForm.$submitted}">
+             <span ng-show="model.editWidgetForm.$submitted && model.editWidgetForm.name.$invalid"
+                   ng-class="{submitted:model.editWidgetForm.name.$invalid && model.editWidgetForm.$submitted}">
+            <span class="fa fa-exclamation-triangle"></span>
+                Please enter Widget Name
         </span>
-    </div>
-    <div class="form-group">
-        <label for="widget-image-text">Text</label>
-        <input ng-model="model.widget.text"
-               type="text"
-               class="form-control"
-               id="widget-image-text"
-               placeholder="image text"/>
-    </div>
-    <div class="form-group">
-        <label for="widget-image-url">URL</label>
-        <input ng-model="model.widget.url"
-               type="text"
-               class="form-control"
-               id="widget-image-url"
-               placeholder="image url"/>
-    </div>
+        </div>
+        <div class="form-group">
+            <label for="widget-image-text">Text</label>
+            <input ng-model="model.widget.text"
+                   type="text"
+                   class="form-control"
+                   id="widget-image-text"
+                   placeholder="image text"/>
+        </div>
+        <div class="form-group">
+            <label for="widget-image-url">URL</label>
+            <input ng-model="model.widget.url"
+                   type="text"
+                   class="form-control"
+                   id="widget-image-url"
+                   placeholder="image url"/>
+        </div>
 
-    <div class="form-group">
-        <label for="widget-image-width">Width</label>
-        <input ng-model="model.widget.width"
-               type="text"
-               class="form-control"
-               id="widget-image-width"
-               value="100%"
-               placeholder="image width"/>
-    </div>
-
+        <div class="form-group">
+            <label for="widget-image-width">Width</label>
+            <input ng-model="model.widget.width"
+                   type="text"
+                   class="form-control"
+                   id="widget-image-width"
+                   value="100%"
+                   placeholder="image width"/>
+        </div>
+    </form>
     <form action="/api/upload"  method="post" enctype="multipart/form-data">
         <input  name="myFile"   type="file" class="form-control"/>
         <input  name="width"    value="{{model.widget.width}}" style="display: none"/>
@@ -85,7 +84,7 @@
        class="btn btn-danger  btn-block btn-top-margin">Delete</a>
 
     <a class="btn btn-primary btn-block"
-        href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}/flickr">
+       href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.widgetId}}/flickr">
         Search
     </a>
 </div>

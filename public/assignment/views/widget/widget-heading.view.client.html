@@ -26,16 +26,10 @@
     <div  ng-if="model.error"
           class="alert alert-danger alert-dismissible"
           role="alert">
-        <button type="button"
-                class="close"
-                data-dismiss="alert"
-                aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
         <strong>Error!</strong> {{model.error}}
     </div>
 
-    <form>
+    <form name="model.editWidgetForm" novalidate>
         <div class="form-group">
             <label for="widget-heading-name">Name</label>
             <input ng-model="model.widget.name"
@@ -43,9 +37,14 @@
                    class="form-control"
                    id="widget-heading-name"
                    required
-                    placeholder="name"/>
-            <span ng-show="model.noWidgetName">
-                {{model.noWidgetName}}
+                    placeholder="name"
+                   name="name"
+                   required
+                   ng-class="{submitted:model.editWidgetForm.name.$invalid && model.editWidgetForm.$submitted}">
+            <span ng-show="model.editWidgetForm.$submitted && model.editWidgetForm.name.$invalid"
+                  ng-class="{submitted:model.editWidgetForm.name.$invalid && model.editWidgetForm.$submitted}">
+            <span class="fa fa-exclamation-triangle"></span>
+                Please enter Widget Name
             </span>
         </div>
 

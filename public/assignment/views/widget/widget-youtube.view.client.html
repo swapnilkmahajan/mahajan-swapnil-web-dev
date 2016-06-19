@@ -33,17 +33,22 @@
         </button>
         <strong>Error!</strong> {{model.error}}
     </div>
-    <form>
+    <form name="model.editWidgetForm" novalidate>
         <div class="form-group">
             <label for="widget-image-name">Name</label>
             <input ng-model="model.widget.name"
                    type="text"
                    class="form-control"
                    id="widget-image-name"
-                   placeholder="video name"/>
-            <span ng-show="model.noWidgetName">
-                {{model.noWidgetName}}
-            </span>
+                   placeholder="video name"
+                   name="name"
+                   required
+                   ng-class="{submitted:model.editWidgetForm.name.$invalid && model.editWidgetForm.$submitted}"/>
+                <span ng-show="model.editWidgetForm.$submitted && model.editWidgetForm.name.$invalid"
+                      ng-class="{submitted:model.editWidgetForm.name.$invalid && model.editWidgetForm.$submitted}">
+                <span class="fa fa-exclamation-triangle"></span>
+                    Please enter Widget Name
+                </span>
         </div>
         <div class="form-group">
             <label for="widget-image-text">Text</label>
